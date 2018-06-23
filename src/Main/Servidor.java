@@ -1,5 +1,7 @@
 package Main;
 import java.net.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.io.*;
 
 /*
@@ -13,7 +15,7 @@ import java.io.*;
  * @author adtony45
  */
 public class Servidor {
-    final int puerto_conexion = 5000;
+    final int puerto_conexion = 1234;
     ServerSocket socketServidor;
     Socket socket;
     DataOutputStream salidaDatos;
@@ -24,6 +26,7 @@ public class Servidor {
     public void inicializarServidor(){
         BufferedReader entradaDatos;
         try{
+        	while(true) {
             socketServidor = new ServerSocket(puerto_conexion);
             socket = new Socket();
             System.out.println("    Esperando conexion:");
@@ -37,7 +40,7 @@ public class Servidor {
             System.out.println("    Estableciendo conexion");
 
             //Se escribe el mensaje via consola.
-            salidaDatos.writeUTF("  Conexion estado....exitosa");
+            //salidaDatos.writeUTF("  Conexion estado....exitosa");
             
             //Se recibe el mensaje via consola.
             //mensajeCaptado = entradaDatos.readLine();
@@ -47,10 +50,44 @@ public class Servidor {
             
             System.out.println(mensajeCaptado);
             //salidaDatos.writeUTF(" Mensaje recibido....cerrando conexion");
-            //socket.close();
+            //enviarPaquete();
+            socket.close();
+        	}
         }
         catch(Exception error){
             System.out.println("    Lo siento ha ocurrido un error en el servidor:"+error.getMessage());
-        }
+        }   
     }
+    
+    //Función en desarrollo, la cual se encarga de enviar el paquete
+//  public void construirPaquete() {
+//	try {
+//		socketConectar = new Socket(host,puertoConexionServidor);
+//        //System.out.println("Acceso concedido");
+//        //Para enviar un mensaje primero se establece el medio.
+//        mensajeFlujo = new DataOutputStream(socketConectar.getOutputStream());
+//        //BufferedWriter escribir = new BufferedWriter(new OutputStreamWriter(mensajeFlujo));
+//        //Una vez establecido el medio o flujo se envia el mensaje deseado.
+//        mensajeFlujo.writeUTF("Hola que tal soy nuevo con sockets");
+//        //Luego se cierra la conexion.
+//        //enviarPaquete();
+//        //socketConectar.close();
+//    }
+//    catch(Exception error){
+//        System.out.println("    A ocurrido un error:"+error.getMessage());
+//    }
+//}
+
+//Función para enviar los paquetes en intervalos de tiempo.
+		public void enviarPaquete() {
+			int contador = 0;
+			Timer marca = new Timer();
+			TimerTask tarea = new TimerTask() {
+			public void run() {
+			//construirPaquete();
+			}
+		};
+					
+		marca.scheduleAtFixedRate(tarea, 0, 5000);
+				}
 }
