@@ -5,15 +5,20 @@
  */
 package Main;
 
+import static Main.Json.almacenes;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
  * @author adtony45
  */
 public class MainServidor {
+    
+    static Almacen almacen = new Almacen();
 
     /**
      * @param args the command line arguments
@@ -33,6 +38,70 @@ public class MainServidor {
             id = id + 1;
             Servidor.iniciarServidor(socket, ss, id);
         }
+        
+        /*
+        //Prueba que crea
+        try {
+        almacenes = Json.Leer();
+        
+        
+        }
+        
+        catch(FileNotFoundException e){
+            System.out.println("Archivo vacio.");
+        } 
+        catch (IOException ex) {
+            System.out.println("error");
+        }
+        
+        
+        
+            if (almacenes.isEmpty()){
+                
+                almacen.setNombre("almacen0");
+                almacen.setIp("192.65.22.22");
+                almacenes.add(almacen);
+
+                Json.Escribir(almacenes);
+
+            } else {
+                System.out.println("entro");
+               int valor = almacenes.size();
+               
+            System.out.println(valor);
+            String numero = Integer.toString(valor);
+                almacen.setNombre("almacen"+numero);
+                almacen.setIp("192.65.203.203");
+                almacenes.add(valor, almacen);
+
+                Json.Escribir(almacenes);
+            }*/
+                
+        /*
+        prueba que consigue el siguiente
+        String Almacen0S, Almacen1S, Almacen2S;
+        
+        Almacen0S = Json.buscarAlmacenSig("192.65.22.22");
+        System.out.println("192.65.22.22");
+        System.out.println(Almacen0S);
+        Almacen1S = Json.buscarAlmacenSig("192.65.200.200");
+        System.out.println("192.65.200.200");
+        System.out.println(Almacen1S);
+        Almacen2S = Json.buscarAlmacenSig("192.65.300.400");
+        System.out.println("192.65.300.300");
+        System.out.println(Almacen2S);
+                
+        */
+        /*
+        prueba que elimina
+        String Almacen0S;
+        Almacen0S = Json.buscarAlmacenSig("192.65.22.22");
+        System.out.println("antes de eliminar"+Almacen0S);
+        Json.EliminarAlmacen("192.65.22.22");
+        Almacen0S = Json.buscarAlmacenSig("192.65.22.22");
+
+        */
+        
     }
     
 }
