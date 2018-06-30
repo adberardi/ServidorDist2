@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class Transporte {
     
-    private int identificador;
-    private int ipDestinatario;
+    private String identificador;
+    private String ipDestinatario;
     private int puertoDestinatario;
     private ArrayList<Paquete> paquetes;
     
@@ -42,28 +42,28 @@ public class Transporte {
     /**
      * @return the identificador
      */
-    public int getIdentificador() {
+    public String getIdentificador() {
         return identificador;
     }
 
     /**
      * @param identificador the identificador to set
      */
-    public void setIdentificador(int identificador) {
+    public void setIdentificador(String identificador) {
         this.identificador = identificador;
     }
 
     /**
      * @return the ipDestinatario
      */
-    public int getIpDestinatario() {
+    public String getIpDestinatario() {
         return ipDestinatario;
     }
 
     /**
      * @param ipDestinatario the ipDestinatario to set
      */
-    public void setIpDestinatario(int ipDestinatario) {
+    public void setIpDestinatario(String ipDestinatario) {
         this.ipDestinatario = ipDestinatario;
     }
 

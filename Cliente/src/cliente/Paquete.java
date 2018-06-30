@@ -11,8 +11,8 @@ package cliente;
  * @author Marvian
  */
 class Paquete {
-    private int ipEmisor;
-    private int ipDestinatarioFinal;
+    private String ipEmisor;
+    private String ipDestinatarioFinal;
     private String mensaje;
     
     /*tiempoSalida: tiempo tomando en el que se subio el paquete al transporte*/
@@ -24,28 +24,28 @@ class Paquete {
     /**
      * @return the ipEmisor
      */
-    public int getIpEmisor() {
+    public String getIpEmisor() {
         return ipEmisor;
     }
 
     /**
      * @param ipEmisor the ipEmisor to set
      */
-    public void setIpEmisor(int ipEmisor) {
+    public void setIpEmisor(String ipEmisor) {
         this.ipEmisor = ipEmisor;
     }
 
     /**
      * @return the ipDestinatarioFinal
      */
-    public int getIpDestinatarioFinal() {
+    public String getIpDestinatarioFinal() {
         return ipDestinatarioFinal;
     }
 
     /**
      * @param ipDestinatarioFinal the ipDestinatarioFinal to set
      */
-    public void setIpDestinatarioFinal(int ipDestinatarioFinal) {
+    public void setIpDestinatarioFinal(String ipDestinatarioFinal) {
         this.ipDestinatarioFinal = ipDestinatarioFinal;
     }
 
