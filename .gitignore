@@ -12,3 +12,5 @@
 hs_err_pid*
 /Cliente/nbproject/private/
 /Servidor_Dist/nbproject/private/
+/Cliente/build/
+/Servidor_Dist/build/
