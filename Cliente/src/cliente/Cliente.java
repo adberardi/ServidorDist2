@@ -5,6 +5,7 @@
  */
 package cliente;
 
+
 import comunicacion.Estadistica;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,6 +15,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import peticiones.Mensaje;
+
 
 /**
  *
@@ -27,6 +29,7 @@ public class Cliente {
      * entrar al anillo.
      */
     public static void main(String[] args) throws IOException {
+
         ServerSocket ss;
         int id = 0;
         int puertoEscucha = 12000;
@@ -37,6 +40,15 @@ public class Cliente {
             System.out.println("Ha sido registrado en el anillo, su id es" +
                     id);
         }
+        // TODO code application logic here
+        String prueba = "192.168.25.07";
+        String pruebatrae;
+        
+        Json.EscriboIpSiguiente(prueba);
+        
+        pruebatrae = Json.LeerAlmacen();
+        
+        System.out.println(pruebatrae);
     }
     
 }
