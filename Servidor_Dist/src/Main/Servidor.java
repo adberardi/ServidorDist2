@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.io.*;
+import peticiones.Mensaje;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,8 +15,73 @@ import java.io.*;
  *
  * @author adtony45
  */
-public class Servidor {
-    final int puerto_conexion = 1234;
+public class Servidor{
+    
+    /**
+     * Metodo que se llama al iniciar el servidor para recibir peticiones via
+     * sockets.
+     * Opciones en la recepcion:
+     *  1 = Almacen que quiere ingresar al anillo.
+     */
+    public static void iniciarServidor( Socket socket, ServerSocket ss, int id ){
+        new Thread(){
+            @Override
+            public void run(){
+                try{
+                    ObjectOutputStream oos;
+                    ObjectInputStream ois;
+                    Mensaje mensaje;
+                    ois = new ObjectInputStream( socket.getInputStream() );
+                    oos = new ObjectOutputStream( socket.getOutputStream() );
+                    
+                    System.out.println("Antes del while");
+                    while ( true ){
+                        System.out.println("Antes de leer");
+                        mensaje = ( Mensaje ) ois.readObject();
+                        System.out.println("Antes del if");
+                        if ( mensaje.getOpcion() == 1 ){
+                            
+                            System.out.println("Recibi tu petición y te acepto" + mensaje.getMensaje());
+                            mensaje.setMensaje( "200" );
+                            mensaje.setOpcion(id);
+                            oos.writeObject( mensaje );
+                            oos.flush();
+                        }
+                    /*oos.close();
+                    ois.close();
+                    socket.close();
+                    ss.close();*/
+                    }
+                }
+                catch(Exception e){
+                    System.out.println("algo malo");   
+                     e.printStackTrace();
+                }
+                
+            }
+        }.start();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*final int puerto_conexion = 12000;
     ServerSocket socketServidor;
     Socket socket;
     DataOutputStream salidaDatos;
@@ -26,32 +92,32 @@ public class Servidor {
     public void inicializarServidor(){
         BufferedReader entradaDatos;
         try{
-        	while(true) {
-            socketServidor = new ServerSocket(puerto_conexion);
-            socket = new Socket();
-            System.out.println("    Esperando conexion:");
-            socket = socketServidor.accept();
-            //Se inicia el socket.
-            System.out.println("    Cliente conectado");
-            //Canales de comunicación
-            entradaDatos = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            mensajeEntrante = new DataInputStream(socket.getInputStream());
-            salidaDatos = new DataOutputStream(socket.getOutputStream());
-            System.out.println("    Estableciendo conexion");
+            while(true) {
+                socketServidor = new ServerSocket(puerto_conexion);
+                socket = new Socket();
+                System.out.println("    Esperando conexion:");
+                socket = socketServidor.accept();
+                //Se inicia el socket.
+                System.out.println("    Cliente conectado");
+                //Canales de comunicación
+                entradaDatos = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                mensajeEntrante = new DataInputStream(socket.getInputStream());
+                salidaDatos = new DataOutputStream(socket.getOutputStream());
+                System.out.println("    Estableciendo conexion");
 
-            //Se escribe el mensaje via consola.
-            //salidaDatos.writeUTF("  Conexion estado....exitosa");
-            
-            //Se recibe el mensaje via consola.
-            //mensajeCaptado = entradaDatos.readLine();
-            
-            //Para el envio de datos desde el cliente y servidor se usa DataInputstream
-            mensajeCaptado = mensajeEntrante.readUTF();
-            
-            System.out.println(mensajeCaptado);
-            //salidaDatos.writeUTF(" Mensaje recibido....cerrando conexion");
-            //enviarPaquete();
-            socket.close();
+                //Se escribe el mensaje via consola.
+                //salidaDatos.writeUTF("  Conexion estado....exitosa");
+
+                //Se recibe el mensaje via consola.
+                //mensajeCaptado = entradaDatos.readLine();
+
+                //Para el envio de datos desde el cliente y servidor se usa DataInputstream
+                mensajeCaptado = mensajeEntrante.readUTF();
+
+                System.out.println(mensajeCaptado);
+                //salidaDatos.writeUTF(" Mensaje recibido....cerrando conexion");
+                //enviarPaquete();
+                socket.close();
         	}
         }
         catch(Exception error){
@@ -89,5 +155,5 @@ public class Servidor {
 		};
 					
 		marca.scheduleAtFixedRate(tarea, 0, 5000);
-				}
+				}*/
 }
