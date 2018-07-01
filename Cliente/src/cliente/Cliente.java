@@ -28,11 +28,9 @@ public class Cliente {
      * Clase en la cual se inicia un almacen y realiza una primera llamada para
      * entrar al anillo.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        ServerSocket ss;
         int id = 0;
-        int puertoEscucha = 12000;
         Estadistica peticion = new Estadistica();
         Mensaje mensaje = new Mensaje ( 1 , "localhost" );
         id = peticion.peticionAnillo( mensaje );
@@ -44,16 +42,34 @@ public class Cliente {
                 System.out.println("No se puede ingresar, ya se llego al limite");
             }
         }
+        ServerSocket ss = new ServerSocket(12000);
+        System.out.println("Esperando peticiones");
+        while ( true ){
+            Socket socket = ss.accept();
+            System.out.println("Ha llegado un cliente.");
+            ObjectOutputStream oos;
+            ObjectInputStream ois;
+            Mensaje recibido;
+            ois = new ObjectInputStream( socket.getInputStream() );
+            oos = new ObjectOutputStream( socket.getOutputStream() );
+            recibido = ( Mensaje ) ois.readObject();
+            String prueba = "192.168.25.07";
+            String pruebatrae;
+            Json.EscriboIpSiguiente( recibido.getMensaje() );
+            pruebatrae = Json.LeerAlmacen();
+            System.out.println(pruebatrae);
+            recibido.setMensaje( "Actualizado" );
+            oos.writeObject( recibido );
+            oos.flush();
+        }
         
-        // TODO code application logic here
-        String prueba = "192.168.25.07";
-        String pruebatrae;
         
-        Json.EscriboIpSiguiente(prueba);
         
-        pruebatrae = Json.LeerAlmacen();
         
-        System.out.println(pruebatrae);
+        
+        
+        
+        
     }
     
 }

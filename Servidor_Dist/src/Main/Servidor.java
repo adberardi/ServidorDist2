@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import peticiones.AvisoSiguiente;
 import peticiones.Mensaje;
 
 /*
@@ -67,6 +68,7 @@ public class Servidor{
                             String ipLlegada = String.valueOf( socket.getInetAddress() );
                             ipLlegada = ipLlegada.substring(1, ipLlegada.length());
                             almacen.setIp( ipLlegada );
+                            int id = 0;
                             if ( almacenes != null ){    
                                 if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "null" )  ){
                                     almacen.setNombre( "Almacen0" );
@@ -76,16 +78,19 @@ public class Servidor{
                                 else{
                                     if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen0" ) ){
                                         almacen.setNombre( "Almacen1" );
+                                        Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                         almacenes.add( almacen );
                                     }
                                     else{
                                         if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen1" ) ){
                                             almacen.setNombre( "Almacen2" );
+                                            Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                             almacenes.add( almacen );
                                         }
                                         else{
                                             if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen2" ) ){
                                                 almacen.setNombre( "Almacen3" );
+                                                Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                                 almacenes.add( almacen );
                                             }
                                         }
@@ -101,6 +106,7 @@ public class Servidor{
                             mensaje.setOpcion(id);
                             oos.writeObject( mensaje );
                             oos.flush();
+                            AvisoSiguiente.Avisar( almacen.getIp() , almacenes.get( almacenes.size() - 1 ) );
                         }
                     /*oos.close();
                     ois.close();
