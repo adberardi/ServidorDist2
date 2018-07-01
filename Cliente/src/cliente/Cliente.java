@@ -37,9 +37,14 @@ public class Cliente {
         Mensaje mensaje = new Mensaje ( 1 , "localhost" );
         id = peticion.peticionAnillo( mensaje );
         if ( id != 0 )    {
-            System.out.println("Ha sido registrado en el anillo, su id es" +
+            if ( id < 5 )
+                System.out.println("Ha sido registrado en el anillo, su id es" +
                     id);
+            else{
+                System.out.println("No se puede ingresar, ya se llego al limite");
+            }
         }
+        
         // TODO code application logic here
         String prueba = "192.168.25.07";
         String pruebatrae;

@@ -3,6 +3,8 @@ import java.net.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import peticiones.Mensaje;
 
 /*
@@ -16,6 +18,27 @@ import peticiones.Mensaje;
  * @author adtony45
  */
 public class Servidor{
+    
+    public static void cancelarAlmacen(Socket socket, ServerSocket ss, int id ){
+        try {
+            ObjectOutputStream oos;
+            ObjectInputStream ois;
+            Mensaje mensaje;
+            ois = new ObjectInputStream( socket.getInputStream() );
+            oos = new ObjectOutputStream( socket.getOutputStream() );
+            mensaje = ( Mensaje ) ois.readObject();
+            mensaje.setMensaje( "500" );
+            mensaje.setOpcion(id);
+            oos.writeObject( mensaje );
+            oos.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+    }
+
     
     /**
      * Metodo que se llama al iniciar el servidor para recibir peticiones via

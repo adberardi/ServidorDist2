@@ -31,6 +31,9 @@ public class MainServidor {
             Socket socket = ss.accept();
             System.out.println("Ha llegado un cliente.");
             id = id + 1;
+            if ( id == 5){
+                Servidor.cancelarAlmacen(socket, ss, id);
+            }
             Servidor.iniciarServidor(socket, ss, id);
         }
     }
