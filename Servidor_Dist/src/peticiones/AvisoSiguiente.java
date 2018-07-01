@@ -20,24 +20,25 @@ import java.util.logging.Logger;
  * @author marvian
  */
 public class AvisoSiguiente {
-    public static void Avisar( ArrayList<Almacen> almacenes ){
-        for ( int i = 0; i < almacenes.size() - 1; i++ ){
-            if ( i != 3 ){
+    public static void Avisar( ArrayList<Almacen> almacenes, ObjectOutputStream oos,
+            ObjectInputStream ois){
+        for ( int i = 0; i <= almacenes.size() - 1; i++ ){
+            if ( i != ( almacenes.size() - 1) ){
                 try {
                     Mensaje mensaje;
                     Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
                     System.out.println( "Realizando aviso de siguiente" );
                     mensaje = new Mensaje( 1 , almacenes.get( i + 1 ).getIp() );
-                    ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
-                    ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
+                    oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
+                    ois = new ObjectInputStream( peticionCentral.getInputStream() );
                     oos.writeObject(mensaje);
                     oos.flush();
                     Mensaje respuesta = new Mensaje();
                     respuesta = (Mensaje)ois.readObject();
                     System.out.println("Estatus de respuesta sobre aviso: " + 
                             respuesta.getMensaje() );
-                    oos.close();
-                    ois.close();
+                    //oos.close();
+                    //ois.close();
                     peticionCentral.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -53,17 +54,17 @@ public class AvisoSiguiente {
                     Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
                     System.out.println( "Realizando aviso de siguiente" );
                     mensaje = new Mensaje( 1 , almacenes.get( 0 ).getIp() );
-                    ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
-                    ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
+                    oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
+                    ois = new ObjectInputStream( peticionCentral.getInputStream() );
                     oos.writeObject(mensaje);
                     oos.flush();
                     Mensaje respuesta = new Mensaje();
                     respuesta = (Mensaje)ois.readObject();
                     System.out.println("Estatus de respuesta sobre aviso: " + 
                             respuesta.getMensaje() );
-                    oos.close();
-                    ois.close();
-                    peticionCentral.close();
+                    //oos.close();
+                    //ois.close();
+                    //peticionCentral.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
 

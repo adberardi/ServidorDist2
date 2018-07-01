@@ -21,11 +21,12 @@ import peticiones.Mensaje;
  * @author adtony45
  */
 public class Servidor{
-    
+    static ObjectOutputStream oos;
+    static ObjectInputStream ois;
     public static void cancelarAlmacen(Socket socket, ServerSocket ss, int id ){
         try {
-            ObjectOutputStream oos;
-            ObjectInputStream ois;
+            //ObjectOutputStream oos;
+            //ObjectInputStream ois;
             Mensaje mensaje;
             ois = new ObjectInputStream( socket.getInputStream() );
             oos = new ObjectOutputStream( socket.getOutputStream() );
@@ -54,8 +55,7 @@ public class Servidor{
             @Override
             public void run(){
                 try{
-                    ObjectOutputStream oos;
-                    ObjectInputStream ois;
+                    
                     Mensaje mensaje;
                     ois = new ObjectInputStream( socket.getInputStream() );
                     oos = new ObjectOutputStream( socket.getOutputStream() );
@@ -86,13 +86,14 @@ public class Servidor{
                                             almacen.setNombre( "Almacen2" );
                                             Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                             almacenes.add( almacen );
+                                            AvisoSiguiente.Avisar( almacenes, oos, ois );
                                         }
                                         else{
                                             if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen2" ) ){
                                                 almacen.setNombre( "Almacen3" );
                                                 Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                                 almacenes.add( almacen );
-                                                AvisoSiguiente.Avisar( almacenes );
+                                                
                                             }
                                         }
                                     }
@@ -109,10 +110,11 @@ public class Servidor{
                             oos.flush();
                             
                         }
-                    /*oos.close();
-                    ois.close();
-                    socket.close();
-                    ss.close();*/
+                    
+                    //oos.close();
+                    //ois.close();
+                    //socket.close();
+                    //ss.close();
                     }
                 }
                 catch(Exception e){
@@ -120,7 +122,9 @@ public class Servidor{
                      e.printStackTrace();
                 }
                 
+                
             }
+            
         }.start();
     }
     
