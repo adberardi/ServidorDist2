@@ -26,7 +26,7 @@ public class AvisoSiguiente {
                 try {
                     Mensaje mensaje;
                     Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
-                    System.out.println( "Realizando petición de entrada al anillo" );
+                    System.out.println( "Realizando aviso de siguiente" );
                     mensaje = new Mensaje( 1 , almacenes.get( i + 1 ).getIp() );
                     ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
                     ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
@@ -51,7 +51,7 @@ public class AvisoSiguiente {
                 try {
                     Mensaje mensaje;
                     Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
-                    System.out.println( "Realizando petición de entrada al anillo" );
+                    System.out.println( "Realizando aviso de siguiente" );
                     mensaje = new Mensaje( 1 , almacenes.get( 0 ).getIp() );
                     ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
                     ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
