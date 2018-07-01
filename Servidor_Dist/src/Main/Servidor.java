@@ -92,6 +92,7 @@ public class Servidor{
                                                 almacen.setNombre( "Almacen3" );
                                                 Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                                 almacenes.add( almacen );
+                                                AvisoSiguiente.Avisar( almacenes );
                                             }
                                         }
                                     }
@@ -106,7 +107,7 @@ public class Servidor{
                             mensaje.setOpcion(id);
                             oos.writeObject( mensaje );
                             oos.flush();
-                            AvisoSiguiente.Avisar( almacen.getIp() , almacenes.get( almacenes.size() - 1 ) );
+                            
                         }
                     /*oos.close();
                     ois.close();
