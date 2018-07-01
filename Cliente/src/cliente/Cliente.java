@@ -29,7 +29,7 @@ public class Cliente {
      * entrar al anillo.
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-
+        ServerSocket ss = new ServerSocket(12000);
         int id = 0;
         Estadistica peticion = new Estadistica();
         Mensaje mensaje = new Mensaje ( 1 , "localhost" );
@@ -42,7 +42,7 @@ public class Cliente {
                 System.out.println("No se puede ingresar, ya se llego al limite");
             }
         }
-        ServerSocket ss = new ServerSocket(12000);
+        
         System.out.println("Esperando peticiones");
         while ( true ){
             Socket socket = ss.accept();

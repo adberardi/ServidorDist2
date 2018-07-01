@@ -81,6 +81,7 @@ public class Servidor{
                                         almacen.setNombre( "Almacen1" );
                                         Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                         almacenes.add( almacen );
+                                        
                                     }
                                     else{
                                         if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen1" ) ){
@@ -94,8 +95,8 @@ public class Servidor{
                                                 almacen.setNombre( "Almacen3" );
                                                 Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                                 almacenes.add( almacen );
-                                                //Esta llamada se hace cuando estan todos los nodos conectados
-                                                AvisoSiguiente.Avisar( almacenes, oos, ois );
+                                                
+                                                
                                             }
                                         }
                                     }
@@ -110,6 +111,8 @@ public class Servidor{
                             mensaje.setOpcion(id);
                             oos.writeObject( mensaje );
                             oos.flush();
+                            //Esta llamada se hace cuando estan todos los nodos conectados
+                            AvisoSiguiente.Avisar( almacenes, oos, ois );
                             
                         }
                     

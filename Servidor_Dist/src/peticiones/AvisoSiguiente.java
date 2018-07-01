@@ -24,55 +24,82 @@ public class AvisoSiguiente {
             ObjectInputStream ois){
         for ( int i = 0; i <= almacenes.size() - 1; i++ ){
             //NOtificaciones desde el nodo original hasta el segundo
-            if ( i != ( almacenes.size() - 1) ){
+            if ( almacenes.size() - 1 == 0 ){
                 try {
-                    Mensaje mensaje;
-                    Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
-                    System.out.println( "Realizando aviso de siguiente" );
-                    mensaje = new Mensaje( 1 , almacenes.get( i + 1 ).getIp() );
-                    oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
-                    ois = new ObjectInputStream( peticionCentral.getInputStream() );
-                    oos.writeObject(mensaje);
-                    oos.flush();
-                    Mensaje respuesta = new Mensaje();
-                    respuesta = (Mensaje)ois.readObject();
-                    System.out.println("Estatus de respuesta sobre aviso: " + 
-                            respuesta.getMensaje() );
-                    //oos.close();
-                    //ois.close();
-                    peticionCentral.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                        Mensaje mensaje;
+                        Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
+                        System.out.println( "Realizando aviso de siguiente" );
+                        mensaje = new Mensaje( 1 , almacenes.get( 0 ).getIp() );
+                        oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
+                        ois = new ObjectInputStream( peticionCentral.getInputStream() );
+                        oos.writeObject(mensaje);
+                        oos.flush();
+                        Mensaje respuesta = new Mensaje();
+                        respuesta = (Mensaje)ois.readObject();
+                        System.out.println("Estatus de respuesta sobre aviso: " + 
+                                respuesta.getMensaje() );
+                        //oos.close();
+                        //ois.close();
+                        //peticionCentral.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
 
-                } catch (ClassNotFoundException ex) {
+                    } catch (ClassNotFoundException ex) {
 
-                    ex.printStackTrace();
-                }
+                        ex.printStackTrace();
+                    }
             }
-            //Notificacion para el ultimo nodo
             else{
-                try {
-                    Mensaje mensaje;
-                    Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
-                    System.out.println( "Realizando aviso de siguiente" );
-                    mensaje = new Mensaje( 1 , almacenes.get( 0 ).getIp() );
-                    oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
-                    ois = new ObjectInputStream( peticionCentral.getInputStream() );
-                    oos.writeObject(mensaje);
-                    oos.flush();
-                    Mensaje respuesta = new Mensaje();
-                    respuesta = (Mensaje)ois.readObject();
-                    System.out.println("Estatus de respuesta sobre aviso: " + 
-                            respuesta.getMensaje() );
-                    //oos.close();
-                    //ois.close();
-                    //peticionCentral.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                if ( i != ( almacenes.size() - 1) ){
+                    try {
+                        Mensaje mensaje;
+                        Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
+                        System.out.println( "Realizando aviso de siguiente" );
+                        mensaje = new Mensaje( 1 , almacenes.get( i + 1 ).getIp() );
+                        oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
+                        ois = new ObjectInputStream( peticionCentral.getInputStream() );
+                        oos.writeObject(mensaje);
+                        oos.flush();
+                        Mensaje respuesta = new Mensaje();
+                        respuesta = (Mensaje)ois.readObject();
+                        System.out.println("Estatus de respuesta sobre aviso: " + 
+                                respuesta.getMensaje() );
+                        //oos.close();
+                        //ois.close();
+                        peticionCentral.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
 
-                } catch (ClassNotFoundException ex) {
+                    } catch (ClassNotFoundException ex) {
 
-                    ex.printStackTrace();
+                        ex.printStackTrace();
+                    }
+                }
+                //Notificacion para el ultimo nodo
+                else{
+                    try {
+                        Mensaje mensaje;
+                        Socket peticionCentral = new Socket( almacenes.get( i ).getIp(), 12000 );
+                        System.out.println( "Realizando aviso de siguiente" );
+                        mensaje = new Mensaje( 1 , almacenes.get( 0 ).getIp() );
+                        oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
+                        ois = new ObjectInputStream( peticionCentral.getInputStream() );
+                        oos.writeObject(mensaje);
+                        oos.flush();
+                        Mensaje respuesta = new Mensaje();
+                        respuesta = (Mensaje)ois.readObject();
+                        System.out.println("Estatus de respuesta sobre aviso: " + 
+                                respuesta.getMensaje() );
+                        //oos.close();
+                        //ois.close();
+                        //peticionCentral.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+
+                    } catch (ClassNotFoundException ex) {
+
+                        ex.printStackTrace();
+                    }
                 }
             }
         }
