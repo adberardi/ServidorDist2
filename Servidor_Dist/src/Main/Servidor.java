@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import peticiones.Mensaje;
@@ -56,14 +57,44 @@ public class Servidor{
                     Mensaje mensaje;
                     ois = new ObjectInputStream( socket.getInputStream() );
                     oos = new ObjectOutputStream( socket.getOutputStream() );
-                    
-                    System.out.println("Antes del while");
+                    ArrayList<Almacen> almacenes = new ArrayList<>();
                     while ( true ){
-                        System.out.println("Antes de leer");
                         mensaje = ( Mensaje ) ois.readObject();
-                        System.out.println("Antes del if");
                         if ( mensaje.getOpcion() == 1 ){
-                            
+                            almacenes = Json.Leer();
+                            Almacen almacen = new Almacen();
+                            String ipLlegada = String.valueOf( socket.getInetAddress() );
+                            ipLlegada = ipLlegada.substring(1, ipLlegada.length());
+                            almacen.setIp( ipLlegada );
+                            if ( almacenes != null ){    
+                                if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "null" )  ){
+                                    almacen.setNombre( "Almacen0" );
+                                    almacenes.get( 0 ).setIp( almacen.getIp() );
+                                    almacenes.get( 0 ).setNombre( almacen.getNombre() );
+                                }
+                                else{
+                                    if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen0" ) ){
+                                        almacen.setNombre( "Almacen1" );
+                                        almacenes.add( almacen );
+                                    }
+                                    else{
+                                        if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen1" ) ){
+                                            almacen.setNombre( "Almacen2" );
+                                            almacenes.add( almacen );
+                                        }
+                                        else{
+                                            if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen2" ) ){
+                                                almacen.setNombre( "Almacen3" );
+                                                almacenes.add( almacen );
+                                            }
+                                        }
+                                    }
+                                }   
+                            }
+                            else{
+                                System.out.println("Error");
+                            }
+                            Json.Escribir( almacenes );
                             System.out.println("Recibi tu petición y te acepto" + mensaje.getMensaje());
                             mensaje.setMensaje( "200" );
                             mensaje.setOpcion(id);

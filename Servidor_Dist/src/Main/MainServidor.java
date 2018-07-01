@@ -39,7 +39,10 @@ public class MainServidor {
             if ( id == 5){
                 Servidor.cancelarAlmacen(socket, ss, id);
             }
-            Servidor.iniciarServidor(socket, ss, id);
+            else{
+                Servidor.iniciarServidor(socket, ss, id);
+            }
+            
         }
         
         /*
