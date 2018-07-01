@@ -6,6 +6,7 @@
 package Main;
 
 import static Main.Json.almacenes;
+import MetodosRemoto.RemotoServidor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -44,6 +45,15 @@ public class MainServidor {
             }
             
         }
+        
+        //Agregado por Antonio para probar las estadisticas del tiempo promedio. 
+        //RemotoServidor prueba = new RemotoServidor();
+        //prueba.almacenarTiempo(1, "192.168.15.11");
+        //prueba.almacenarTiempo(2, "192.17.123.1");
+        //prueba.almacenarTiempo(3, "192.17.123.1");
+        //long tiempo_promedio = prueba.obtenerTiempo("192.168.15.11");
+        //float tiempo_promedio = prueba.obtenerTiempo("192.17.123.1");
+        //System.out.println("El tiempo promedio es: "+tiempo_promedio);
         
         /*
         //Prueba que crea
