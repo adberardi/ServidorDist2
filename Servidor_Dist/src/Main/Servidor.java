@@ -48,7 +48,8 @@ public class Servidor{
      * Metodo que se llama al iniciar el servidor para recibir peticiones via
      * sockets.
      * Opciones en la recepcion:
-     *  1 = Almacen que quiere ingresar al anillo.
+     *  1 = Almacen que quiere ingresar al anillo y además al ingresar todos
+     * se hace la llamada para notificar sobre nodos siguientes.
      */
     public static void iniciarServidor( Socket socket, ServerSocket ss, int id ){
         new Thread(){
@@ -86,14 +87,15 @@ public class Servidor{
                                             almacen.setNombre( "Almacen2" );
                                             Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                             almacenes.add( almacen );
-                                            AvisoSiguiente.Avisar( almacenes, oos, ois );
+                                            
                                         }
                                         else{
                                             if ( almacenes.get( almacenes.size() - 1 ).getNombre().equals( "Almacen2" ) ){
                                                 almacen.setNombre( "Almacen3" );
                                                 Almacen almacenSguiente = almacenes.get( almacenes.size() - 1 );
                                                 almacenes.add( almacen );
-                                                
+                                                //Esta llamada se hace cuando estan todos los nodos conectados
+                                                AvisoSiguiente.Avisar( almacenes, oos, ois );
                                             }
                                         }
                                     }

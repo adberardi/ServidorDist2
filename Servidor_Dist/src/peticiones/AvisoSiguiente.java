@@ -23,6 +23,7 @@ public class AvisoSiguiente {
     public static void Avisar( ArrayList<Almacen> almacenes, ObjectOutputStream oos,
             ObjectInputStream ois){
         for ( int i = 0; i <= almacenes.size() - 1; i++ ){
+            //NOtificaciones desde el nodo original hasta el segundo
             if ( i != ( almacenes.size() - 1) ){
                 try {
                     Mensaje mensaje;
@@ -48,6 +49,7 @@ public class AvisoSiguiente {
                     ex.printStackTrace();
                 }
             }
+            //Notificacion para el ultimo nodo
             else{
                 try {
                     Mensaje mensaje;
