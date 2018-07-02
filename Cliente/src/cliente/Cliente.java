@@ -6,7 +6,7 @@
 package cliente;
 
 
-import comunicacion.Estadistica;
+import comunicacion.ConexionAnillo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,7 +31,7 @@ public class Cliente {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ServerSocket ss = new ServerSocket(12000);
         int id = 0;
-        Estadistica peticion = new Estadistica();
+        ConexionAnillo peticion = new ConexionAnillo();
         Mensaje mensaje = new Mensaje ( 1 , "localhost" );
         id = peticion.peticionAnillo( mensaje );
         if ( id != 0 )    {
@@ -61,6 +61,10 @@ public class Cliente {
             recibido.setMensaje( "Actualizado" );
             oos.writeObject( recibido );
             oos.flush();
+            
+            if (recibido.getOpcion() == 2){
+                
+            }
         }
         
         
