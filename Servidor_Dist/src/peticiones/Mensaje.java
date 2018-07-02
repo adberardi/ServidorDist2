@@ -5,6 +5,7 @@
  */
 package peticiones;
 
+import Main.Transporte;
 import java.io.Serializable;
 
 /**
@@ -14,13 +15,18 @@ import java.io.Serializable;
 public class Mensaje implements Serializable{
     private int opcion;
     private String mensaje;
+    private Transporte transporte;
+    
     public Mensaje( int opcion, String mensaje ){
         this.opcion = opcion;
         this.mensaje = mensaje;
     }
-    public Mensaje(){
-        
+    
+    public Mensaje( int opcion, String mensaje, Transporte transporte ){
+        this.opcion = opcion;
+        this.mensaje = mensaje;
     }
+    public Mensaje(){}
     /**
      * @return the opcion
      */
@@ -48,7 +54,19 @@ public class Mensaje implements Serializable{
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-    
-         
+
+    /**
+     * @return the transporte
+     */
+    public Transporte getTransporte() {
+        return transporte;
+    }
+
+    /**
+     * @param transporte the transporte to set
+     */
+    public void setTransporte(Transporte transporte) {
+        this.transporte = transporte;
+    }
     
 }
