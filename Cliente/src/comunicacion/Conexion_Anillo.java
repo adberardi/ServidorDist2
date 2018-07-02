@@ -30,7 +30,6 @@ public class Conexion_Anillo {
         try {
             Socket peticionCentral = new Socket( "localhost", 11000 );
             System.out.println( "Realizando petición de entrada al anillo" );
-            mensaje = new Mensaje( 1 , "localhost" );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
             ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
             oos.writeObject(mensaje);

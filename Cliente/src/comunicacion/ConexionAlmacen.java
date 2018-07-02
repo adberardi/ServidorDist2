@@ -6,6 +6,7 @@
 
 package comunicacion;
 
+import cliente.Transporte;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,13 +21,13 @@ import peticiones.Mensaje;
  */
 public class ConexionAlmacen {
     
-    public void peticionEnvioTransporte( Mensaje mensaje, String vecino ){
+    public void peticionEnvioTransporte( Mensaje mensaje, String vecino, Transporte transporte ){
         int id;
         
         try {
             Socket peticionCentral = new Socket( vecino , 11000 );
             System.out.println( "Realizando petición para enviar transporte" );
-            mensaje = new Mensaje( 1 , "localhost" );
+            mensaje = new Mensaje( 2 , "prueba", transporte );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
             ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
             oos.writeObject(mensaje);
@@ -38,11 +39,9 @@ public class ConexionAlmacen {
             ois.close();
             id = respuesta.getOpcion();
         } catch (IOException ex) {
-            Logger.getLogger(ConexionAnillo.class.getName()).log(Level.SEVERE, null, ex);
-            id = 0;
+            Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ConexionAnillo.class.getName()).log(Level.SEVERE, null, ex);
-            id = 0;
+            Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

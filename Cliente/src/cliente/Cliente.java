@@ -6,14 +6,16 @@
 package cliente;
 
 
+import comunicacion.ConexionAlmacen;
 import comunicacion.Conexion_Anillo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import static java.lang.Thread.sleep;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Scanner;
 import peticiones.Mensaje;
 
 
@@ -29,6 +31,10 @@ public class Cliente {
      * entrar al anillo.
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        int nTransporte = 0;
+        int segundos = 0 ;
+        Scanner reader = new Scanner(System.in);
+        sleep espera = new sleep();
         ServerSocket ss = new ServerSocket(12000);
         String nombre = "null";
         Conexion_Anillo peticion = new Conexion_Anillo();
@@ -40,6 +46,17 @@ public class Cliente {
         else{
             System.out.println("Ha sido registrado en el anillo, su id es" +
                     nombre);
+            }
+        Almacen yo = new Almacen();
+        yo.setNombre(nombre);
+        yo.setIp("localhost");
+        
+        if(yo.getNombre() == "almace0"){
+            while( segundos == 5 || segundos == 10 || segundos == 15 || segundos == 20 ){
+                System.out.println("Cuantos segundos quiere que demore "
+                        + "los transportes en salir? 5, 10, 15, 20 segundo ");
+                segundos = reader.nextInt(); 
+            }
             }
         
         System.out.println("Esperando peticiones");
@@ -64,15 +81,18 @@ public class Cliente {
             if (recibido.getOpcion() == 2){
                 
             }
-        }
-        
-        
-        
-        
-        
-        
-        
-        
+            
+            if(yo.getNombre() == "almace0" && nTransporte < 4){
+                ConexionAlmacen peticion1 = new ConexionAlmacen();
+                espera.run(segundos);
+                Paquete paquete = new Paquete();
+                ArrayList<Paquete> paquetes = null;
+                paquetes.add(paquete);
+                Transporte transporte = new Transporte("prueba","prueba",1,paquetes);
+                peticion1.peticionEnvioTransporte(mensaje, "prueba", transporte);
+            }
+           
+        }      
     }
     
 }

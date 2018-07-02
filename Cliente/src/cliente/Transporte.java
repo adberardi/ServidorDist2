@@ -39,6 +39,10 @@ public class Transporte {
     que se intentaron subir con exito*/
     private int cantidadTotalPaquetesSubidos;
 
+    Transporte(String prueba, String prueba0, int i, ArrayList<Paquete> paquetes) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * @return the identificador
      */
