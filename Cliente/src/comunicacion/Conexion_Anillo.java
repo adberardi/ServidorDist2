@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package comunicacion;
 
 import java.io.IOException;
@@ -16,16 +15,21 @@ import peticiones.Mensaje;
 
 /**
  *
- * @author Marvian
+ * @author marvian
+ * Clase en la cual se realia toda la comunicacion entre los almacenes y el
+ * servidor de estadisticas.
  */
-public class ConexionAlmacen {
-    
-    public void peticionEnvioTransporte( Mensaje mensaje, String vecino ){
-        int id;
-        
+public class Conexion_Anillo {
+    /**
+     * Peticion para ingresar en el anillo.
+     * @param mensaje objeto que hace referencia a lo que se quiere hacer.
+     * @return Devuelve un identificador unico para los almacenes.
+     */
+    public String peticionAnillo( Mensaje mensaje ){
+        String nombre;
         try {
-            Socket peticionCentral = new Socket( vecino , 11000 );
-            System.out.println( "Realizando petición para enviar transporte" );
+            Socket peticionCentral = new Socket( "localhost", 11000 );
+            System.out.println( "Realizando petición de entrada al anillo" );
             mensaje = new Mensaje( 1 , "localhost" );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
             ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
@@ -36,14 +40,15 @@ public class ConexionAlmacen {
             System.out.println("Estatus de respuesta:" + respuesta.getMensaje() );
             oos.close();
             ois.close();
-            id = respuesta.getOpcion();
+            nombre = respuesta.getMensaje();
         } catch (IOException ex) {
-            Logger.getLogger(ConexionAnillo.class.getName()).log(Level.SEVERE, null, ex);
-            id = 0;
+            Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
+            nombre = "500";
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ConexionAnillo.class.getName()).log(Level.SEVERE, null, ex);
-            id = 0;
+            Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
+            nombre = "500";
         }
-        
+        return nombre;
     }
+    
 }

@@ -6,7 +6,7 @@
 package cliente;
 
 
-import comunicacion.ConexionAnillo;
+import comunicacion.Conexion_Anillo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -30,18 +30,17 @@ public class Cliente {
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         ServerSocket ss = new ServerSocket(12000);
-        int id = 0;
-        ConexionAnillo peticion = new ConexionAnillo();
+        String nombre = "null";
+        Conexion_Anillo peticion = new Conexion_Anillo();
         Mensaje mensaje = new Mensaje ( 1 , "localhost" );
-        id = peticion.peticionAnillo( mensaje );
-        if ( id != 0 )    {
-            if ( id < 5 )
-                System.out.println("Ha sido registrado en el anillo, su id es" +
-                    id);
-            else{
-                System.out.println("No se puede ingresar, ya se llego al limite");
-            }
+        nombre = peticion.peticionAnillo( mensaje );
+        if ( nombre.equals( "500" ) )    {
+            System.out.println("No se puede ingresar, ya se llego al limite");
         }
+        else{
+            System.out.println("Ha sido registrado en el anillo, su id es" +
+                    nombre);
+            }
         
         System.out.println("Esperando peticiones");
         while ( true ){
