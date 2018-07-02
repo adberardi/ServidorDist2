@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package Main;
+package peticiones;
 
 /**
  *
- * @author Marvian
+ * @author gilbert
  */
 class Paquete {
     private String ipEmisor;
@@ -91,5 +90,4 @@ class Paquete {
         this.tiempoLlegado = tiempoLlegado;
     }
 
-    
 }

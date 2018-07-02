@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package cliente;
+package peticiones;
 
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ public class Transporte {
     que se intentaron subir con exito*/
     private int cantidadTotalPaquetesSubidos;
 
-    Transporte(String prueba, String prueba0, int i, ArrayList<Paquete> paquetes) {
+    public Transporte(String prueba, String prueba0, int i, ArrayList<Paquete> paquetes) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

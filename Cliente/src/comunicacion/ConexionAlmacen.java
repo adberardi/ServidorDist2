@@ -6,7 +6,7 @@
 
 package comunicacion;
 
-import cliente.Transporte;
+import peticiones.Transporte;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

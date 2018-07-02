@@ -17,6 +17,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 import peticiones.Mensaje;
+import peticiones.Paquete;
+import peticiones.Transporte;
 
 
 /**

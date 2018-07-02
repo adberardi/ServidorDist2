@@ -5,12 +5,11 @@
  */
 package peticiones;
 
-import Main.Transporte;
 import java.io.Serializable;
 
 /**
  *
- * @author adtony45
+ * @author gilbert
  */
 public class Mensaje implements Serializable{
     private int opcion;
@@ -68,5 +67,4 @@ public class Mensaje implements Serializable{
     public void setTransporte(Transporte transporte) {
         this.transporte = transporte;
     }
-    
 }

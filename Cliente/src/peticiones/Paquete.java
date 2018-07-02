@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package cliente;
+package peticiones;
 
 /**
  *
  * @author Marvian
  */
-class Paquete {
+public class Paquete {
     private String ipEmisor;
     private String ipDestinatarioFinal;
     private String mensaje;
