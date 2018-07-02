@@ -19,14 +19,14 @@ import peticiones.Mensaje;
  * Clase en la cual se realia toda la comunicacion entre los almacenes y el
  * servidor de estadisticas.
  */
-public class Estadistica {
+public class Conexion_Anillo {
     /**
      * Peticion para ingresar en el anillo.
      * @param mensaje objeto que hace referencia a lo que se quiere hacer.
      * @return Devuelve un identificador unico para los almacenes.
      */
-    public int peticionAnillo( Mensaje mensaje ){
-        int id;
+    public String peticionAnillo( Mensaje mensaje ){
+        String nombre;
         try {
             Socket peticionCentral = new Socket( "localhost", 11000 );
             System.out.println( "Realizando petición de entrada al anillo" );
@@ -40,15 +40,15 @@ public class Estadistica {
             System.out.println("Estatus de respuesta:" + respuesta.getMensaje() );
             oos.close();
             ois.close();
-            id = respuesta.getOpcion();
+            nombre = respuesta.getMensaje();
         } catch (IOException ex) {
-            Logger.getLogger(Estadistica.class.getName()).log(Level.SEVERE, null, ex);
-            id = 0;
+            Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
+            nombre = "500";
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Estadistica.class.getName()).log(Level.SEVERE, null, ex);
-            id = 0;
+            Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
+            nombre = "500";
         }
-        return id;
+        return nombre;
     }
     
 }

@@ -107,7 +107,7 @@ public class Servidor{
                             }
                             Json.Escribir( almacenes );
                             System.out.println("Recibi tu petición y te acepto" + mensaje.getMensaje());
-                            mensaje.setMensaje( "200" );
+                            mensaje.setMensaje( almacen.getNombre() );
                             mensaje.setOpcion(id);
                             oos.writeObject( mensaje );
                             oos.flush();
