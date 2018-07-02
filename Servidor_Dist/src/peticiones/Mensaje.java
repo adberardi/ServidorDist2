@@ -24,6 +24,7 @@ public class Mensaje implements Serializable{
     public Mensaje( int opcion, String mensaje, Transporte transporte ){
         this.opcion = opcion;
         this.mensaje = mensaje;
+        this.transporte = transporte;
     }
     public Mensaje(){}
     /**

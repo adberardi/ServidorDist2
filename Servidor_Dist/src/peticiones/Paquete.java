@@ -5,11 +5,13 @@
  */
 package peticiones;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gilbert
  */
-class Paquete {
+class Paquete implements Serializable{
     private String ipEmisor;
     private String ipDestinatarioFinal;
     private String mensaje;

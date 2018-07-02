@@ -6,13 +6,14 @@
 package peticiones;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Marvian
  */
-public class Transporte {
+public class Transporte implements Serializable{
     
     private String identificador;
     private String ipDestinatario;
@@ -39,8 +40,11 @@ public class Transporte {
     que se intentaron subir con exito*/
     private int cantidadTotalPaquetesSubidos;
 
-    Transporte(String prueba, String prueba0, int i, ArrayList<Paquete> paquetes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Transporte(String prueba, String prueba0, int i, ArrayList<Paquete> paquetes) {
+        this.identificador = prueba;
+        this.ipDestinatario = prueba0;
+        this.puertoDestinatario = i;
+        this.paquetes = paquetes;
     }
 
     /**

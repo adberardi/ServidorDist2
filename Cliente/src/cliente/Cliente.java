@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import static java.lang.Thread.sleep;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -53,15 +54,15 @@ public class Cliente {
         yo.setNombre(nombre);
         yo.setIp("localhost");
         
-        if(yo.getNombre() == "almace0"){
-            while( segundos == 5 || segundos == 10 || segundos == 15 || segundos == 20 ){
+        if(yo.getNombre().equals( "Almacen0" ) ){
+            System.out.println("dentro if");
+            //while( segundos == 5 || segundos == 10 || segundos == 15 || segundos == 20 ){
                 System.out.println("Cuantos segundos quiere que demore "
                         + "los transportes en salir? 5, 10, 15, 20 segundo ");
                 segundos = reader.nextInt(); 
-            }
-            }
-        
-        System.out.println("Esperando peticiones");
+            //}
+        }
+        /*int loop = 0;
         while ( true ){
             Socket socket = ss.accept();
             System.out.println("Ha llegado un cliente.");
@@ -79,21 +80,68 @@ public class Cliente {
             recibido.setMensaje( "Actualizado" );
             oos.writeObject( recibido );
             oos.flush();
-            
+            break;
+        }*/
+        System.out.println("Esperando peticiones");
+        System.out.println(InetAddress.getLocalHost().getHostAddress());
+        while ( true ){
+            /*Socket socket = ss.accept();
+            System.out.println("Ha llegado un cliente.");
+            ObjectOutputStream oos;
+            ObjectInputStream ois;
+            Mensaje recibido;
+            ois = new ObjectInputStream( socket.getInputStream() );
+            oos = new ObjectOutputStream( socket.getOutputStream() );
+            recibido = ( Mensaje ) ois.readObject();
+            String prueba = "192.168.25.07";
+            String pruebatrae;
+            Json.EscriboIpSiguiente( recibido.getMensaje() );
+            pruebatrae = Json.LeerAlmacen();
+            System.out.println(pruebatrae);
+            recibido.setMensaje( "Actualizado" );
+            oos.writeObject( recibido );
+            oos.flush();
+            */
+            Socket socket = ss.accept();
+            System.out.println("Ha llegado un cliente.");
+            ObjectOutputStream oos;
+            ObjectInputStream ois;
+            Mensaje recibido;
+            ois = new ObjectInputStream( socket.getInputStream() );
+            oos = new ObjectOutputStream( socket.getOutputStream() );
+            recibido = ( Mensaje ) ois.readObject();
+            if (recibido.getOpcion() == 1){
+                Json.EscriboIpSiguiente( recibido.getMensaje() );
+                String pruebatrae;
+                pruebatrae = Json.LeerAlmacen();
+                System.out.println(pruebatrae);
+                recibido.setMensaje( "Actualizado" );
+                oos.writeObject( recibido );
+                oos.flush();
+            }
             if (recibido.getOpcion() == 2){
-                
+                System.out.println("Recibi peticion");
+                System.out.println("Esto es lo que recibi:");
+                System.out.println( recibido.getTransporte().getIdentificador() );
+                System.out.println( recibido.getTransporte().getIpDestinatario() );
+                System.out.println( recibido.getTransporte().getPuertoDestinatario() );
+                recibido.setMensaje( "Exitoso" );
+                oos.writeObject( recibido );
+                oos.flush();
             }
-            
-            if(yo.getNombre() == "almace0" && nTransporte < 4){
-                ConexionAlmacen peticion1 = new ConexionAlmacen();
-                espera.run(segundos);
-                Paquete paquete = new Paquete();
-                ArrayList<Paquete> paquetes = null;
-                paquetes.add(paquete);
-                Transporte transporte = new Transporte("prueba","prueba",1,paquetes);
-                peticion1.peticionEnvioTransporte(mensaje, "prueba", transporte);
+            //Aqui es fundamental colocar la ip de la maquina que tiene el almacen0
+            if ( !Json.LeerAlmacen().equals( "192.168.1.104" ) ){
+                if(yo.getNombre().equals( "Almacen0" ) && nTransporte < 4){
+                    ConexionAlmacen peticion1 = new ConexionAlmacen();
+                    System.out.println("aqui");
+                    espera.run(segundos);
+                    Paquete paquete = new Paquete();
+                    ArrayList<Paquete> paquetes = new ArrayList<>();
+                    paquetes.add(paquete);
+                    Transporte transporte = new Transporte("prueba","prueba",1,paquetes);
+                    peticion1.peticionEnvioTransporte(mensaje, Json.LeerAlmacen() , transporte);
+                }
             }
-           
         }      
     }
     

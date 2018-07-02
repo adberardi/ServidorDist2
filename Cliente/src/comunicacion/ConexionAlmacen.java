@@ -25,7 +25,7 @@ public class ConexionAlmacen {
         int id;
         
         try {
-            Socket peticionCentral = new Socket( vecino , 11000 );
+            Socket peticionCentral = new Socket( vecino , 12000 );
             System.out.println( "Realizando petición para enviar transporte" );
             mensaje = new Mensaje( 2 , "prueba", transporte );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
@@ -37,7 +37,7 @@ public class ConexionAlmacen {
             System.out.println("Estatus de respuesta:" + respuesta.getMensaje() );
             oos.close();
             ois.close();
-            id = respuesta.getOpcion();
+            //id = respuesta.getOpcion();
         } catch (IOException ex) {
             Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
