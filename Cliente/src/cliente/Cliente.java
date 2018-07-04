@@ -6,6 +6,7 @@
 package cliente;
 
 
+import Remoto.ConexionRemoto;
 import comunicacion.ConexionAlmacen;
 import comunicacion.Conexion_Anillo;
 import java.io.IOException;
@@ -15,7 +16,14 @@ import static java.lang.Thread.sleep;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.Scanner;
 import peticiones.Mensaje;
 import peticiones.Paquete;
@@ -33,9 +41,12 @@ public class Cliente {
      * Clase en la cual se inicia un almacen y realiza una primera llamada para
      * entrar al anillo.
      */
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, RemoteException, NotBoundException {
         int nTransporte = 0;
         int segundos = 0 ;
+        int horaP = 0;
+        int minutoP = 0;
+        int segundosP = 0;
         Scanner reader = new Scanner(System.in);
         sleep espera = new sleep();
         ServerSocket ss = new ServerSocket(12000);
@@ -132,6 +143,28 @@ public class Cliente {
                 oos.writeObject( recibido );
                 oos.flush();
                 
+                                
+                //Agregando llamadas del rmi. Autor Antonio Berardi
+                ArrayList<Paquete> recepcion = new ArrayList<Paquete>();
+                recepcion = recibido.getTransporte().getPaquetes();
+                Iterator<Paquete> indicePaquete = recepcion.iterator();
+                while(indicePaquete.hasNext()){
+                    String ipValido = indicePaquete.next().getIpDestinatarioFinal();
+                     Calendar tiempo = new GregorianCalendar();
+                    horaP = tiempo.get(Calendar.HOUR);
+                    minutoP = tiempo.get(Calendar.MINUTE);
+                    segundosP = tiempo.get(Calendar.SECOND);
+                    String fecha = String.valueOf(horaP)+":"+String.valueOf(minutoP)+":"+String.valueOf(segundosP);
+                    System.out.println(fecha);
+                    //Calendar calendario = new Calendar();
+                    if(InetAddress.getLocalHost().getHostAddress().equals(ipValido)){
+                        Registry registroCliente = LocateRegistry.getRegistry();
+                        ConexionRemoto canalCliente = (ConexionRemoto) registroCliente.lookup("canal");
+                        canalCliente.almacenarTiempo(segundosP, recibido.getTransporte().getIdentificador());
+                    }
+                }
+                
+                
                 //Aqui envio al siguiente almacen
                 ConexionAlmacen peticion1 = new ConexionAlmacen();
                 System.out.println("aqui");
@@ -141,6 +174,8 @@ public class Cliente {
                 paquetes.add(paquete);
                 Transporte transporte = new Transporte("prueba","prueba",1,paquetes);
                 peticion1.peticionEnvioTransporte(mensaje, Json.LeerAlmacen() , transporte);
+                
+
                 
             }
             
@@ -155,13 +190,21 @@ public class Cliente {
                     System.out.println("aqui");
                     espera.run(segundos);
                     Paquete paquete = new Paquete();
+                    Calendar tiempo = new GregorianCalendar();
+                    horaP = tiempo.get(Calendar.HOUR);
+                    minutoP = tiempo.get(Calendar.MINUTE);
+                    segundosP = tiempo.get(Calendar.SECOND);
+                    String fecha = String.valueOf(horaP)+":"+String.valueOf(minutoP)+":"+String.valueOf(segundosP);
                     ArrayList<Paquete> paquetes = new ArrayList<>();
+                    paquete.setTiempoSalida(fecha);
                     paquetes.add(paquete);
                     Transporte transporte = new Transporte("prueba","prueba",1,paquetes);
+                    espera.run10s();
                     peticion1.peticionEnvioTransporte(mensaje, Json.LeerAlmacen() , transporte);
                 }
             }
         }      
     }
+
     
 }
