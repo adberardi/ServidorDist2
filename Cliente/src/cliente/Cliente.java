@@ -110,6 +110,7 @@ public class Cliente {
             ois = new ObjectInputStream( socket.getInputStream() );
             oos = new ObjectOutputStream( socket.getOutputStream() );
             recibido = ( Mensaje ) ois.readObject();
+            
             if (recibido.getOpcion() == 1){
                 Json.EscriboIpSiguiente( recibido.getMensaje() );
                 String pruebatrae;
@@ -119,7 +120,9 @@ public class Cliente {
                 oos.writeObject( recibido );
                 oos.flush();
             }
+            
             if (recibido.getOpcion() == 2){
+                espera.run20s();
                 System.out.println("Recibi peticion");
                 System.out.println("Esto es lo que recibi:");
                 System.out.println( recibido.getTransporte().getIdentificador() );
@@ -128,10 +131,26 @@ public class Cliente {
                 recibido.setMensaje( "Exitoso" );
                 oos.writeObject( recibido );
                 oos.flush();
+                
+                //Aqui envio al siguiente almacen
+                ConexionAlmacen peticion1 = new ConexionAlmacen();
+                System.out.println("aqui");
+                espera.run(segundos);
+                Paquete paquete = new Paquete();
+                ArrayList<Paquete> paquetes = new ArrayList<>();
+                paquetes.add(paquete);
+                Transporte transporte = new Transporte("prueba","prueba",1,paquetes);
+                peticion1.peticionEnvioTransporte(mensaje, Json.LeerAlmacen() , transporte);
+                
+            }
+            
+            if (recibido.getOpcion() == 3){
+            
             }
             //Aqui es fundamental colocar la ip de la maquina que tiene el almacen0
             if ( !Json.LeerAlmacen().equals( "192.168.1.104" ) ){
                 if(yo.getNombre().equals( "Almacen0" ) && nTransporte < 4){
+                    nTransporte++;
                     ConexionAlmacen peticion1 = new ConexionAlmacen();
                     System.out.println("aqui");
                     espera.run(segundos);

@@ -151,8 +151,63 @@ public class Json {
             Escribir(nuevaLista);
         
         }
+        
+        
             
     }
+    
+    public static void EscriboId (){
+        int Ip = 1;
+	File archivo = null;
+		
+	JSONObject JsonAlmacen = new JSONObject();
+			
+		JsonAlmacen.put("ID",(Ip));
+            
+           
+            try{
+			
+		File miDir = new File (".");
+		archivo = new File (miDir.getCanonicalPath()+"/ID.Json");
+			
+		if (!archivo.exists())
+                    archivo.createNewFile();
+			
+                    FileWriter fw = new FileWriter (archivo.getAbsoluteFile());
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    bw.write(JsonAlmacen.toJSONString());
+                    bw.close();
+		}
+		catch (IOException e){		
+		}		
+    }
+    
+    public static String LeerID() throws IOException{
+		
+	File archivo = null;
+	JSONParser parseando = new JSONParser();
+        String id;
+		
+		
+	try{
+            File miDir = new File (".");
+            archivo = new File (miDir.getCanonicalPath() +"/ID.Json");
+            FileInputStream fis = new FileInputStream(archivo);			 
+            Object objeto = parseando.parse(new InputStreamReader(fis));	
+            JSONObject objetoJson = (JSONObject) objeto;
+				
+              
+            id = (String) objetoJson.get("ID");                           
+                
+                return id;
+            }
+            
+            catch(Exception e) {System.out.println(e);}
+        
+            return null;            
+		
+
+	}
     
     
     public static ArrayList<Almacen> datosAlmacenes(JSONObject almacenJson){
