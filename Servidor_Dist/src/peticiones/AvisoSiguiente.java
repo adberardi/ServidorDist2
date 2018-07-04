@@ -48,6 +48,10 @@ public class AvisoSiguiente {
 
                         ex.printStackTrace();
                     }
+                    catch  ( Exception ex ) {
+
+                        ex.printStackTrace();
+                    }
             }
             else{
                 if ( i != ( almacenes.size() - 1) ){
@@ -103,5 +107,35 @@ public class AvisoSiguiente {
                 }
             }
         }
+    }
+    public static void Iniciar( Almacen almacenInicial, ObjectOutputStream oos,
+            ObjectInputStream ois ){
+        try {
+                        Mensaje mensaje;
+                        Socket peticionCentral = new Socket( almacenInicial.getIp(), 12000 );
+                        System.out.println( "Realizando aviso de siguiente" );
+                        mensaje = new Mensaje( 4 , almacenInicial.getIp() );
+                        oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
+                        ois = new ObjectInputStream( peticionCentral.getInputStream() );
+                        oos.writeObject(mensaje);
+                        oos.flush();
+                        Mensaje respuesta = new Mensaje();
+                        respuesta = (Mensaje)ois.readObject();
+                        System.out.println("Estatus de respuesta sobre aviso: " + 
+                                respuesta.getMensaje() );
+                        //oos.close();
+                        //ois.close();
+                        //peticionCentral.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+
+                    } catch (ClassNotFoundException ex) {
+
+                        ex.printStackTrace();
+                    }
+                    catch  ( Exception ex ) {
+
+                        ex.printStackTrace();
+                    }
     }
 }
