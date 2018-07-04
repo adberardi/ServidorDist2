@@ -32,6 +32,29 @@ public class MainServidor {
         ServerSocket ss = new ServerSocket(11000);
         System.out.println("Esperando peticiones");
         int id = 0;
+        int nServidores = 0;
+        String prueba = null;
+        
+        prueba = Json.LeerID();
+        
+        System.out.println("prueba sirve" + prueba);
+        
+        if( prueba.equalsIgnoreCase("1") ){
+            System.out.println("entra");
+            do{
+                Socket socket = ss.accept();
+                System.out.println("Ha llegado un Servidor");
+                nServidores++;
+            } while (nServidores < 3);
+        }
+        else {
+            System.out.println("entra en el segundo");
+                Socket socket = ss.accept();
+                System.out.println("Envio ");
+                
+            
+        }
+        
         while ( true ){
             
             Socket socket = ss.accept();
