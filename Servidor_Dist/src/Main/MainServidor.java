@@ -24,7 +24,11 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -219,7 +223,6 @@ public class MainServidor {
                 canal.cargaMax("");
             }
         }*/
-        
         
         
         ServerSocket ss = new ServerSocket(11000);

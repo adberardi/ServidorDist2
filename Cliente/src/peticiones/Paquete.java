@@ -17,10 +17,10 @@ public class Paquete implements Serializable{
     private String mensaje;
     
     /*tiempoSalida: tiempo tomando en el que se subio el paquete al transporte*/
-    private long tiempoSalida;
+    private String tiempoSalida;
     /*tiempoSalida: tiempo tomando en el que el almacen final bajo el paquete 
     del transporte*/
-    private long tiempoLlegado;
+    private String tiempoLlegado;
     
     /**
      * @return the ipEmisor
@@ -67,28 +67,28 @@ public class Paquete implements Serializable{
     /**
      * @return the tiempoSalida
      */
-    public long getTiempoSalida() {
+    public String getTiempoSalida() {
         return tiempoSalida;
     }
 
     /**
      * @param tiempoSalida the tiempoSalida to set
      */
-    public void setTiempoSalida(long tiempoSalida) {
+    public void setTiempoSalida(String tiempoSalida) {
         this.tiempoSalida = tiempoSalida;
     }
 
     /**
      * @return the tiempoLlegado
      */
-    public long getTiempoLlegado() {
+    public String getTiempoLlegado() {
         return tiempoLlegado;
     }
 
     /**
      * @param tiempoLlegado the tiempoLlegado to set
      */
-    public void setTiempoLlegado(long tiempoLlegado) {
+    public void setTiempoLlegado(String tiempoLlegado) {
         this.tiempoLlegado = tiempoLlegado;
     }
 
