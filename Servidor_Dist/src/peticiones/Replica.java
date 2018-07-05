@@ -6,6 +6,7 @@
 
 package peticiones;
 
+import Main.Json;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,13 +20,42 @@ import java.util.logging.Logger;
  */
 public class Replica {
     
-    public void AvisoReplica( Mensaje mensajeSer ){
+    public void AvisoReplica(){
+        String nuevoId;
+        MensajeSer mensajeSer;
+        try {
+            Socket peticionCentral = new Socket( "192.168.1.104", 11000 );
+            System.out.println( "Aviso al central que estoy arriba" );
+            ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
+            ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
+            mensajeSer = ( MensajeSer ) ois.readObject();
+            mensajeSer.setId(Json.LeerID());
+            oos.writeObject(mensajeSer);
+            oos.flush();
+            MensajeSer respuesta = new MensajeSer();
+            respuesta = (MensajeSer)ois.readObject();
+            System.out.println("Estatus de respuesta:" + respuesta.getId() );
+            oos.close();
+            ois.close();
+            nuevoId = respuesta.getId();
+        } catch (IOException ex) {
+            Logger.getLogger(Replica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Replica.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+    }
+    
+    public void RespuestaReplica( MensajeSer mensajeSer ){
         String nuevoId;
         try {
             Socket peticionCentral = new Socket( "192.168.1.104", 11000 );
             System.out.println( "Aviso al central que estoy arriba" );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
             ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
+            mensajeSer = ( MensajeSer ) ois.readObject();
+            mensajeSer.setId(Json.LeerID());
             oos.writeObject(mensajeSer);
             oos.flush();
             MensajeSer respuesta = new MensajeSer();

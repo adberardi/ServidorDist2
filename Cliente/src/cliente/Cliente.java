@@ -183,7 +183,7 @@ public class Cliente {
             
             }
             //Aqui es fundamental colocar la ip de la maquina que tiene el almacen0
-            if ( !Json.LeerAlmacen().equals( "192.168.1.104" ) ){
+            if ( !Json.LeerAlmacen().equals( "192.168.43.48" ) ){
                 if(yo.getNombre().equals( "Almacen0" ) && nTransporte < 4){
                     nTransporte++;
                     ConexionAlmacen peticion1 = new ConexionAlmacen();
