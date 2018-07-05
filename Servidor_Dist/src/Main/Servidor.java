@@ -113,6 +113,13 @@ public class Servidor{
                             oos.flush();
                             //Esta llamada se hace cuando estan todos los nodos conectados
                             AvisoSiguiente.Avisar( almacenes, oos, ois );
+                            /*
+                            DESCOMENTAR PARA CUANDO ESTEN LOS 4 ALMACENES
+                            if ( almacenes.size() - 1 == 4 ){
+                                AvisoSiguiente.Iniciar( almacenes.get(0), oos, ois );
+                                
+                            
+                            }*/
                             
                         }
                     

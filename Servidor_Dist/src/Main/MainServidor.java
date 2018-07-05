@@ -234,7 +234,7 @@ public class MainServidor {
         prueba = Json.LeerID();
         
         System.out.println("prueba sirve" + prueba);
-        
+        /*
         if( prueba.equalsIgnoreCase("1") ){
             System.out.println("entra");
             do{
@@ -250,18 +250,62 @@ public class MainServidor {
                 
             
         }
-        
+        */
         while ( true ){
-            
+            ConexionRemoto canal = new ConexionRemoto() {
+                @Override
+                public String getDireccionIp() throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public void getProducto() throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public int getTiempoLlegada() throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public boolean almacenarTiempo(long tiempo_llegada, String ipEmisor) throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public boolean almacenarTiempo(String ipEmisor, int cargaPaquete, long tiempo_llegada) throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public float cargaMax(String ipEmisor) throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public float obtenerTiempo(String ipEmisor) throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public float obtenerTiempoTotal(String ipEmisor) throws RemoteException {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+            };
+            //ConexionRemoto stub = (ConexionRemoto) UnicastRemoteObject.exportObject(canal, 0);
+            //Registry registro = LocateRegistry.createRegistry(1099);
+            //registro.bind("canal", stub);
             Socket socket = ss.accept();
             System.out.println("Ha llegado un cliente.");
             id = id + 1;
 //<<<<<<< Updated upstream
-            if ( id == 5){
+            if ( id == 4){
                 Servidor.cancelarAlmacen(socket, ss, id);
             }
             else{
                 Servidor.iniciarServidor(socket, ss, id);
+                
             }
             
         }

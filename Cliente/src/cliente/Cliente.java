@@ -30,6 +30,7 @@ import peticiones.Paquete;
 import peticiones.Transporte;
 
 
+
 /**
  *
  * @author adtony45
@@ -94,6 +95,7 @@ public class Cliente {
             break;
         }*/
         System.out.println("Esperando peticiones");
+        String ip = InetAddress.getLocalHost().getHostAddress();
         System.out.println(InetAddress.getLocalHost().getHostAddress());
         while ( true ){
             /*Socket socket = ss.accept();
@@ -131,7 +133,7 @@ public class Cliente {
                 oos.writeObject( recibido );
                 oos.flush();
             }
-            
+            //Recibe jun paquete
             if (recibido.getOpcion() == 2){
                 espera.run20s();
                 System.out.println("Recibi peticion");
@@ -143,26 +145,15 @@ public class Cliente {
                 oos.writeObject( recibido );
                 oos.flush();
                 
+                 
+                 Registry registroCliente = LocateRegistry.getRegistry(); 
+                 System.setProperty("java.rmi.server.hostname","192.168.43.48");
+                 ConexionRemoto canalCliente = (ConexionRemoto) registroCliente.lookup("canal"); 
+                 System.out.println("       RMI");
+                 
+                 canalCliente.almacenarTiempo(0/*segundosP*/, recibido.getTransporte().getIdentificador()); 
                                 
-                //Agregando llamadas del rmi. Autor Antonio Berardi
-                ArrayList<Paquete> recepcion = new ArrayList<Paquete>();
-                recepcion = recibido.getTransporte().getPaquetes();
-                Iterator<Paquete> indicePaquete = recepcion.iterator();
-                while(indicePaquete.hasNext()){
-                    String ipValido = indicePaquete.next().getIpDestinatarioFinal();
-                     Calendar tiempo = new GregorianCalendar();
-                    horaP = tiempo.get(Calendar.HOUR);
-                    minutoP = tiempo.get(Calendar.MINUTE);
-                    segundosP = tiempo.get(Calendar.SECOND);
-                    String fecha = String.valueOf(horaP)+":"+String.valueOf(minutoP)+":"+String.valueOf(segundosP);
-                    System.out.println(fecha);
-                    //Calendar calendario = new Calendar();
-                    if(InetAddress.getLocalHost().getHostAddress().equals(ipValido)){
-                        Registry registroCliente = LocateRegistry.getRegistry();
-                        ConexionRemoto canalCliente = (ConexionRemoto) registroCliente.lookup("canal");
-                        canalCliente.almacenarTiempo(segundosP, recibido.getTransporte().getIdentificador());
-                    }
-                }
+                
                 
                 
                 //Aqui envio al siguiente almacen
@@ -183,6 +174,7 @@ public class Cliente {
             
             }
             //Aqui es fundamental colocar la ip de la maquina que tiene el almacen0
+
             if ( !Json.LeerAlmacen().equals( "192.168.43.48" ) ){
                 if(yo.getNombre().equals( "Almacen0" ) && nTransporte < 4){
                     nTransporte++;
