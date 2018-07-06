@@ -205,12 +205,14 @@ public class MainServidor {
         }
         return contador;
             }
-        };
+        };*/
         
-        ConexionRemoto stub = (ConexionRemoto) UnicastRemoteObject.exportObject(canal, 0);
+        RemotoServidor servidor = new RemotoServidor();
+    ConexionRemoto stub = (ConexionRemoto) UnicastRemoteObject.exportObject(servidor, 0);
         Registry registro = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         registro.bind("canal", stub);
         
+        /*
         Scanner menu = new Scanner(System.in);
         boolean salir = false;
         int seleccion = 0;
