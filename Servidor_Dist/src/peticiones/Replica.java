@@ -30,8 +30,7 @@ public class Replica {
             System.out.println( "Aviso al central que estoy arriba" );
             mensaje = new Mensaje( 2 , "" ,"localhost" );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
-            ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
-            mensaje = ( Mensaje ) ois.readObject();            
+            ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );            
             oos.writeObject(mensaje);
             Mensaje respuesta = new Mensaje();
             respuesta = (Mensaje)ois.readObject();
