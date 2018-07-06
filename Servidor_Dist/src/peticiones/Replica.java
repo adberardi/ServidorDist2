@@ -26,7 +26,7 @@ public class Replica {
         Mensaje mensaje;
         
         try {
-            Socket peticionCentral = new Socket( "192.168.1.104", 11000 );
+            Socket peticionCentral = new Socket( "186.90.152.227", 11000 );
             System.out.println( "Aviso al central que estoy arriba" );
             mensaje = new Mensaje( 2 , "","localhost" );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );

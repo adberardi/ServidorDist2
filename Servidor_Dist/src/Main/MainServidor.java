@@ -207,11 +207,11 @@ public class MainServidor {
             }
         };*/
         
-        RemotoServidor servidor = new RemotoServidor();
+        /*RemotoServidor servidor = new RemotoServidor();
     ConexionRemoto stub = (ConexionRemoto) UnicastRemoteObject.exportObject(servidor, 0);
         Registry registro = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         registro.bind("canal", stub);
-        
+        */
         /*
         Scanner menu = new Scanner(System.in);
         boolean salir = false;
@@ -243,11 +243,7 @@ public class MainServidor {
         
         if( prueba.equalsIgnoreCase("1") ){
             System.out.println("entra");
-            do{
-                Socket socket = ss.accept();
-                System.out.println("Ha llegado un Servidor");
-                nServidores++;
-            } while (nServidores < 3);
+            
         }
         else {
             System.out.println("entra en el segundo");
