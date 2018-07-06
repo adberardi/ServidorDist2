@@ -97,6 +97,14 @@ public class Cliente {
         System.out.println("Esperando peticiones");
         String ip = InetAddress.getLocalHost().getHostAddress();
         System.out.println(InetAddress.getLocalHost().getHostAddress());
+        Registry registroCliente = LocateRegistry.getRegistry(); 
+                 //System.setProperty("java.rmi.server.hostname","192.168.43.48");
+                 ConexionRemoto canalCliente; 
+                canalCliente = (ConexionRemoto)registroCliente.lookup("canal");
+                
+                 System.out.println("       RMI");
+                 
+                 canalCliente.almacenarTiempo(0, "1.2.3.43");
         while ( true ){
             /*Socket socket = ss.accept();
             System.out.println("Ha llegado un cliente.");
@@ -146,12 +154,14 @@ public class Cliente {
                 oos.flush();
                 
                  
-                 Registry registroCliente = LocateRegistry.getRegistry(); 
-                 System.setProperty("java.rmi.server.hostname","192.168.43.48");
-                 ConexionRemoto canalCliente = (ConexionRemoto) registroCliente.lookup("canal"); 
+                /* Registry registroCliente = LocateRegistry.getRegistry(); 
+                 //System.setProperty("java.rmi.server.hostname","192.168.43.48");
+                 ConexionRemoto canalCliente; 
+                canalCliente = (ConexionRemoto)registroCliente.lookup("canal");
+                
                  System.out.println("       RMI");
                  
-                 canalCliente.almacenarTiempo(0/*segundosP*/, recibido.getTransporte().getIdentificador()); 
+                 canalCliente.almacenarTiempo(0, recibido.getTransporte().getIdentificador());*/ 
                                 
                 
                 
