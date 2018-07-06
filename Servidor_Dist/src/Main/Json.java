@@ -254,10 +254,10 @@ public class Json {
 			MensajeSer replica = new MensajeSer();
 			replica.setId(listaReplicas.get(i).getId());
 			replica.setIp(listaReplicas.get(i).getIp());	
-			JSONObject almacenJson = new JSONObject();
-			almacenJson.put("Id",( listaReplicas.get(i).getId()));
-			almacenJson.put("Ip", (listaReplicas.get(i).getIp()));
-			replicas.add(listaReplicas);	
+			JSONObject replicasJson = new JSONObject();
+			replicasJson.put("Id",( listaReplicas.get(i).getId()));
+			replicasJson.put("Ip", (listaReplicas.get(i).getIp()));
+			replicas.add(replicasJson);	
 		}
 		usuariosJson.put("Replicas", replicas);
 		try{
