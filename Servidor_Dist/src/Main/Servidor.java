@@ -146,7 +146,8 @@ public class Servidor{
                         }
                         
                         if (nServidores  == 3){
-                            Json.AcomodoReplicas();
+                          replicas = Json.AcomodoReplicas();
+                          Json.EscribirReplicas(replicas);
                         }
                     
                     //oos.close();
