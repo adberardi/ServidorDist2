@@ -130,15 +130,19 @@ public class Servidor{
                             String ipLlegada = String.valueOf( socket.getInetAddress() );
                             ipLlegada = ipLlegada.substring(1, ipLlegada.length());
                             System.out.println("Recibi tu petición servidor");
-
-                            replicas = Json.LeerReplicas();
                             MensajeSer replica = new MensajeSer();
-                            replica.setId("");
-                            replica.setIp(ipLlegada);
-                            replicas.add(replica);
-                           Json.EscribirReplicas(replicas);
-                           nServidores++;
-                           
+                            replicas = Json.LeerReplicas();
+                            if ( replicas.get( replicas.size() - 1 ).getId().equals( "null" )  ){
+                                replicas.get(0).setId("");
+                                replicas.get(0).setIp(ipLlegada);
+                            }
+                            else{
+                                replica.setId("");
+                                replica.setIp(ipLlegada);
+                                replicas.add(replica);
+                            }
+                            Json.EscribirReplicas(replicas);
+                            nServidores++;
                         }
                         
                         if (nServidores  == 3){
