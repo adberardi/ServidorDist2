@@ -17,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import peticiones.MensajeSer;
 
 /**
  *
@@ -25,6 +26,8 @@ import org.json.simple.parser.ParseException;
 public class Json {
     
     static ArrayList<Almacen> almacenes = new ArrayList<Almacen>();
+ 
+    static ArrayList<MensajeSer> replicas = new ArrayList<MensajeSer>();
      
     public static void Escribir(ArrayList<Almacen> listaAlmacenes){
 		File archivo = null;
@@ -209,6 +212,71 @@ public class Json {
 
 	}
     
+    public static ArrayList<MensajeSer> LeerReplicas() throws IOException{
+            File archivo = null;
+		JSONParser parseando = new JSONParser();
+		try{
+		    File miDir = new File (".");
+		    archivo = new File (miDir.getCanonicalPath() +"/Replicas.Json");
+		    FileInputStream fis = new FileInputStream(archivo);			 
+		    Object objeto = parseando.parse(new InputStreamReader(fis));	
+                    JSONObject objetoJson = (JSONObject) objeto;
+                    JSONArray arregloReplicas = (JSONArray)objetoJson.get("Replicas");;
+                    System.out.println("Tamaño Array LEYENDO: " + arregloReplicas.size());
+                    replicas.clear();
+			
+		    try{   
+			for (int i = 0; i < arregloReplicas.size(); i++){
+                            JSONObject replicasJson = (JSONObject)arregloReplicas.get(i);
+			    replicas.addAll(datosReplicas(replicasJson));
+			    System.out.println("Tamaño Array TERMINE DE LEER: " + replicas.size());
+			    System.out.println(replicas.get(i).getIp());
+			}
+			return replicas;
+	            }
+	            catch(Exception e) {System.out.println(e);}
+	}
+	catch(ParseException e){
+		System.out.println("Ha ocurrido un error"+e.getMessage());
+		System.out.println(e);
+	}
+	return replicas;
+		
+    }
+    
+    public static void EscribirReplicas(ArrayList<MensajeSer> listaReplicas){
+		File archivo = null;
+		
+                
+		JSONObject usuariosJson = new JSONObject();
+		JSONArray replicas = new JSONArray();
+		for (int i=0 ; i < listaReplicas.size() ; i++){
+			MensajeSer replica = new MensajeSer();
+			replica.setId(listaReplicas.get(i).getId());
+			replica.setIp(listaReplicas.get(i).getIp());	
+			JSONObject almacenJson = new JSONObject();
+			almacenJson.put("Id",( listaReplicas.get(i).getId()));
+			almacenJson.put("Ip", (listaReplicas.get(i).getIp()));
+			replicas.add(listaReplicas);	
+		}
+		usuariosJson.put("Replicas", replicas);
+		try{
+			
+			File miDir = new File (".");
+			archivo = new File (miDir.getCanonicalPath()+"/Replicas.Json");
+			
+			if (!archivo.exists())
+				archivo.createNewFile();
+			
+			FileWriter fw = new FileWriter (archivo.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(usuariosJson.toJSONString());
+			bw.close();
+		}
+		catch (IOException e){		
+		}
+    }
+    
     
     public static ArrayList<Almacen> datosAlmacenes(JSONObject almacenJson){
 		Almacen almacen = new Almacen();
@@ -218,4 +286,46 @@ public class Json {
                 almacenes.add(almacen);
                 return almacenes;
 	}
+    
+     public static ArrayList<MensajeSer> datosReplicas(JSONObject replicasJson){
+		MensajeSer replica = new MensajeSer();
+		ArrayList<MensajeSer> replicas = new ArrayList<>();
+		replica.setId(((String) replicasJson.get("Id")));
+                replica.setIp(((String) replicasJson.get("Ip")));
+                replicas.add(replica);
+                return replicas;
+	}
+     
+     public static ArrayList<MensajeSer> AcomodoReplicas () throws IOException{
+         ArrayList<MensajeSer> replicas = new ArrayList<MensajeSer>();
+         ArrayList<MensajeSer> nuevaReplicas = new ArrayList<MensajeSer>();
+         String cadena1, cadena2;
+
+         replicas = LeerReplicas();
+         
+         cadena1 = replicas.get(0).getIp();
+         cadena2 = replicas.get(1).getIp();
+         
+         int comparison = cadena1.compareTo(cadena2);
+         
+          if(comparison>0){ 
+              
+              System.out.println("El grandulon es " + cadena1 );
+              
+          
+          }else if(comparison<0){ 
+              
+              System.out.println("El grandulon es " + cadena2); 
+              nuevaReplicas.add(replicas.get(1));
+              nuevaReplicas.add(replicas.get(0));
+              
+              
+          }else System.out.println("");
+
+
+         
+         
+        return nuevaReplicas; 
+        
+     }
 }

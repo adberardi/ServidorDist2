@@ -1,14 +1,15 @@
 package Main;
 import MetodosRemoto.RemotoServidor;
+import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.io.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import peticiones.AvisoSiguiente;
 import peticiones.Mensaje;
+import peticiones.MensajeSer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -61,6 +62,7 @@ public class Servidor{
                     ois = new ObjectInputStream( socket.getInputStream() );
                     oos = new ObjectOutputStream( socket.getOutputStream() );
                     ArrayList<Almacen> almacenes = new ArrayList<>();
+                    ArrayList<MensajeSer> replicas = new ArrayList<>();
                     while ( true ){
                         mensaje = ( Mensaje ) ois.readObject();
                         if ( mensaje.getOpcion() == 1 ){
@@ -121,6 +123,15 @@ public class Servidor{
                             
                             }*/
                             
+                        }
+                        
+                        if(mensaje.getOpcion() == 2 ){
+                            replicas = Json.LeerReplicas();
+                            MensajeSer replica = new MensajeSer();
+                            replica.setId(mensaje.getMensaje());
+                            replica.setIp(mensaje.getIp());
+                            replicas.add(replica);
+                           Json.EscribirReplicas(replicas);
                         }
                     
                     //oos.close();

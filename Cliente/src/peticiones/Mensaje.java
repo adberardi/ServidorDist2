@@ -16,6 +16,7 @@ public class Mensaje implements Serializable{
     private int opcion;
     private String mensaje;
     private Transporte transporte;
+    private String ip;
     
     public Mensaje( int opcion, String mensaje ){
         this.opcion = opcion;
@@ -68,5 +69,19 @@ public class Mensaje implements Serializable{
      */
     public void setTransporte(Transporte transporte) {
         this.transporte = transporte;
+    }
+
+    /**
+     * @return the ip
+     */
+    public String getIp() {
+        return ip;
+    }
+
+    /**
+     * @param ip the ip to set
+     */
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

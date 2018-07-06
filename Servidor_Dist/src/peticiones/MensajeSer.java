@@ -6,14 +6,25 @@
 
 package peticiones;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Marvian
  */
-//haciendo cambios
-public class MensajeSer {
+public class MensajeSer implements Serializable {
     private String id;
     private String ip;
+    private int opcion;
+
+    public MensajeSer(String id, String ip, int i) {
+        this.id = id;
+        this.ip = ip;
+        this.opcion = i;
+    }
+
+    public MensajeSer() {
+    }
 
     /**
      * @return the id
@@ -41,6 +52,20 @@ public class MensajeSer {
      */
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    /**
+     * @return the opcion
+     */
+    public int getOpcion() {
+        return opcion;
+    }
+
+    /**
+     * @param opcion the opcion to set
+     */
+    public void setOpcion(int opcion) {
+        this.opcion = opcion;
     }
     
     

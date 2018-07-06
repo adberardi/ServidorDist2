@@ -46,6 +46,8 @@ public class Transporte implements Serializable{
         this.puertoDestinatario = i;
         this.paquetes = paquetes;
     }
+    
+    public Transporte(){}
 
     /**
      * @return the identificador

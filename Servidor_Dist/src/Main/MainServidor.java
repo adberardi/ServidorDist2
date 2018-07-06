@@ -13,22 +13,26 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
+import peticiones.MensajeSer;
+import peticiones.Replica;
 
 /**
  *
@@ -44,7 +48,7 @@ public class MainServidor {
      * NOTA: para el rmi es importante realiazar los llamados a los metodos 
      * antes de que inicie el servidor concurrente.
      */
-    public static void main(String[] args) throws IOException, RemoteException, AlreadyBoundException {
+    public static void main(String[] args) throws IOException, RemoteException, AlreadyBoundException, ClassNotFoundException {
         // TODO code application logic here
         
         /*ConexionRemoto canal = new ConexionRemoto() {
@@ -234,7 +238,7 @@ public class MainServidor {
         prueba = Json.LeerID();
         
         System.out.println("prueba sirve" + prueba);
-        /*
+        
         if( prueba.equalsIgnoreCase("1") ){
             System.out.println("entra");
             do{
@@ -245,12 +249,11 @@ public class MainServidor {
         }
         else {
             System.out.println("entra en el segundo");
-                Socket socket = ss.accept();
                 System.out.println("Envio ");
-                
-            
+                Replica.avisoReplica();     
+                   
         }
-        */
+        
         while ( true ){
             ConexionRemoto canal = new ConexionRemoto() {
                 @Override
@@ -297,17 +300,25 @@ public class MainServidor {
             //Registry registro = LocateRegistry.createRegistry(1099);
             //registro.bind("canal", stub);
             Socket socket = ss.accept();
+            ObjectOutputStream oos;
+            ObjectInputStream ois;
+            MensajeSer recibido;
+            ois = new ObjectInputStream( socket.getInputStream() );
+            oos = new ObjectOutputStream( socket.getOutputStream() );
+            recibido = ( MensajeSer ) ois.readObject();
             System.out.println("Ha llegado un cliente.");
             id = id + 1;
 //<<<<<<< Updated upstream
             if ( id == 4){
                 Servidor.cancelarAlmacen(socket, ss, id);
+           
             }
             else{
                 Servidor.iniciarServidor(socket, ss, id);
                 
             }
             
+                        
         }
 //=======
        

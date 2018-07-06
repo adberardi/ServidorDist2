@@ -19,25 +19,25 @@ import java.util.logging.Logger;
  * @author Marvian
  */
 public class Replica {
-    
-    public void AvisoReplica(){
+    static ObjectOutputStream oos;
+    static ObjectInputStream ois;    
+    public static void avisoReplica(){
         String nuevoId;
-        MensajeSer mensajeSer;
+        Mensaje mensaje;
+        
         try {
             Socket peticionCentral = new Socket( "192.168.1.104", 11000 );
             System.out.println( "Aviso al central que estoy arriba" );
+            mensaje = new Mensaje( 2 , "","localhost" );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
             ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
-            mensajeSer = ( MensajeSer ) ois.readObject();
-            mensajeSer.setId(Json.LeerID());
-            oos.writeObject(mensajeSer);
-            oos.flush();
-            MensajeSer respuesta = new MensajeSer();
-            respuesta = (MensajeSer)ois.readObject();
-            System.out.println("Estatus de respuesta:" + respuesta.getId() );
+            mensaje = ( Mensaje ) ois.readObject();            
+            oos.writeObject(mensaje);
+            Mensaje respuesta = new Mensaje();
+            respuesta = (Mensaje)ois.readObject();
+            System.out.println("Estatus de respuesta:" + respuesta.getIp() );
             oos.close();
             ois.close();
-            nuevoId = respuesta.getId();
         } catch (IOException ex) {
             Logger.getLogger(Replica.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
