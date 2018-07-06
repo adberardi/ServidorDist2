@@ -51,7 +51,7 @@ public class ConexionAlmacen {
             //Hay que leer el json que se recibirá en algún momento con la info
             //de los otros servidores.
             System.out.println("Tiempo de espera excedido"); 
-            System.out.println("Intento" + intentos); 
+            System.out.println("Intento " + intentos); 
             intentos ++;
         } catch (IOException ex) {
             Logger.getLogger(Conexion_Anillo.class.getName()).log(Level.SEVERE, null, ex);
