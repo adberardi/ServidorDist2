@@ -59,7 +59,7 @@ public class Servidor{
                 try{
                     
                     Mensaje mensaje;
-                    int nServidores = 0;
+                    
                     ois = new ObjectInputStream( socket.getInputStream() );
                     oos = new ObjectOutputStream( socket.getOutputStream() );
                     ArrayList<Almacen> almacenes = new ArrayList<>();
@@ -126,7 +126,7 @@ public class Servidor{
                             
                         }
                         
-                        if(mensaje.getOpcion() == 2 && nServidores <3 ){
+                        if(mensaje.getOpcion() == 2 && id <3 ){
                             String ipLlegada = String.valueOf( socket.getInetAddress() );
                             ipLlegada = ipLlegada.substring(1, ipLlegada.length());
                             System.out.println("Recibi tu petición servidor");
@@ -142,10 +142,9 @@ public class Servidor{
                                 replicas.add(replica);
                             }
                             Json.EscribirReplicas(replicas);
-                            nServidores++;
                         }
-                        
-                        if (nServidores  == 3){
+
+                        if (id  == 2){
                           replicas = Json.AcomodoReplicas();
                           Json.EscribirReplicas(replicas);
                         }
