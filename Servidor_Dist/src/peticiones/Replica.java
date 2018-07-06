@@ -33,6 +33,7 @@ public class Replica {
             ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );
             mensaje = ( Mensaje ) ois.readObject();            
             oos.writeObject(mensaje);
+            oos.flush();
             Mensaje respuesta = new Mensaje();
             respuesta = (Mensaje)ois.readObject();
             System.out.println("Estatus de respuesta:" + respuesta.getIp() );
