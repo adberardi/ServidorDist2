@@ -148,6 +148,14 @@ public class Servidor{
                           replicas = Json.AcomodoReplicas();
                           Json.EscribirReplicas(replicas);
                         }
+                        
+                        if(mensaje.getOpcion() == 5 ){
+                            Json.EliminarAlmacen(mensaje.getMensaje());
+                            almacenes = Json.Leer();
+                            AvisoSiguiente.Avisar( almacenes, oos, ois );
+                        
+                        }
+
                     
                     //oos.close();
                     //ois.close();
