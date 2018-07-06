@@ -253,7 +253,7 @@ public class MainServidor {
         }
         
         while ( true ){
-            ConexionRemoto canal = new ConexionRemoto() {
+            /*ConexionRemoto canal = new ConexionRemoto() {
                 @Override
                 public String getDireccionIp() throws RemoteException {
                     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -293,17 +293,11 @@ public class MainServidor {
                 public float obtenerTiempoTotal(String ipEmisor) throws RemoteException {
                     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 }
-            };
+            };*/
             //ConexionRemoto stub = (ConexionRemoto) UnicastRemoteObject.exportObject(canal, 0);
             //Registry registro = LocateRegistry.createRegistry(1099);
             //registro.bind("canal", stub);
             Socket socket = ss.accept();
-            ObjectOutputStream oos;
-            ObjectInputStream ois;
-            MensajeSer recibido;
-            ois = new ObjectInputStream( socket.getInputStream() );
-            oos = new ObjectOutputStream( socket.getOutputStream() );
-            recibido = ( MensajeSer ) ois.readObject();
             System.out.println("Ha llegado un cliente.");
             id = id + 1;
 //<<<<<<< Updated upstream

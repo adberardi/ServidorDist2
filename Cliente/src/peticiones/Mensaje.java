@@ -28,6 +28,11 @@ public class Mensaje implements Serializable{
         this.mensaje = mensaje;
         this.transporte = transporte;
     }
+    public Mensaje( int opcion, String mensaje, String ip ){
+        this.opcion = opcion;
+        this.mensaje = mensaje;
+        this.ip = ip;
+    }
     public Mensaje(){}
     /**
      * @return the opcion
