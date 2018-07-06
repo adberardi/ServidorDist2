@@ -301,7 +301,7 @@ public class MainServidor {
             System.out.println("Ha llegado un cliente.");
             id = id + 1;
 //<<<<<<< Updated upstream
-            if ( id == 4){
+            if ( id == 7){
                 Servidor.cancelarAlmacen(socket, ss, id);
            
             }
