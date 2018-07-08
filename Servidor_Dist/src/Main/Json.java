@@ -23,12 +23,16 @@ import peticiones.MensajeSer;
  *
  * @author Marvian
  */
+
+//Clase para el manejo de los archivos
 public class Json {
     
     static ArrayList<Almacen> almacenes = new ArrayList<Almacen>();
  
     static ArrayList<MensajeSer> replicas = new ArrayList<MensajeSer>();
-     
+    
+    
+    //Metodo que guarda en el archivo la informacion de los almacenes que conforman el anillo
     public static void Escribir(ArrayList<Almacen> listaAlmacenes){
 		File archivo = null;
 		
@@ -62,6 +66,8 @@ public class Json {
 		}
     }
     
+    
+    //Metodo para leer y hacer un array con los almacenes que pertenecen al anillo
     public static ArrayList<Almacen> Leer() throws IOException{
             File archivo = null;
 		JSONParser parseando = new JSONParser();
@@ -94,6 +100,8 @@ public class Json {
 		
     }
     
+    //MEtodo que devuelve la ip de un almacen
+    //la ip que recibe es la del almacen que quiere saber su vecino
     public static String buscarAlmacenSig(String Ip) throws IOException{
 	ArrayList<Almacen> listaAlmacenes = new ArrayList<>();
 	listaAlmacenes = Leer();
@@ -131,6 +139,7 @@ public class Json {
 	
     }
     
+    //Metodo para eliminar del anillo  a un almacen caido  
     public static void EliminarAlmacen(String ip) throws IOException {
         
         ArrayList<Almacen> nuevaLista = new ArrayList<Almacen>();
@@ -185,6 +194,7 @@ public class Json {
 		}		
     }
     
+    //Lee un id de un archivo que diferencia que no es el central
     public static String LeerID() throws IOException{
 		
 	File archivo = null;
@@ -212,6 +222,8 @@ public class Json {
 
 	}
     
+    
+    //Leer del archivo los datos de los servidores que son replicas
     public static ArrayList<MensajeSer> LeerReplicas() throws IOException{
             File archivo = null;
 		JSONParser parseando = new JSONParser();
@@ -244,6 +256,8 @@ public class Json {
 		
     }
     
+    
+    //Leer del archivo los datos de los servidores que son replicas
     public static void EscribirReplicas(ArrayList<MensajeSer> listaReplicas){
 		File archivo = null;
 		
@@ -296,6 +310,8 @@ public class Json {
                 return replicas;
 	}
      
+     
+     // Metodo que leer del archivo de replicas, saca el grandulon y devuelve la ip
      public static ArrayList<MensajeSer> AcomodoReplicas () throws IOException{
          ArrayList<MensajeSer> replicas = new ArrayList<MensajeSer>();
          ArrayList<MensajeSer> nuevaReplicas = new ArrayList<MensajeSer>();

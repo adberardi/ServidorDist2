@@ -11,6 +11,8 @@ import java.rmi.RemoteException;
  *
  * @author antonio
  */
+
+//Clase usa para el manejo de RMI
 public interface ConexionRemoto extends Remote {
     public String getDireccionIp() throws RemoteException;
         public void getProducto() throws RemoteException;

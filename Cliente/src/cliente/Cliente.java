@@ -33,7 +33,7 @@ import peticiones.Transporte;
 
 /**
  *
- * @author adtony45
+ * @author Marvian
  */
 public class Cliente {
 
@@ -43,7 +43,8 @@ public class Cliente {
      * entrar al anillo.
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException, RemoteException, NotBoundException {
-        int nTransporte = 0;
+        int nTransporte = 0; // variable para determinar cuantos transporter han sido iniciados
+        // variables para el manejo de las estadisticas
         int segundos = 0 ;
         int horaP = 0;
         int minutoP = 0;
@@ -67,62 +68,26 @@ public class Cliente {
         yo.setIp("localhost");
         
         if(yo.getNombre().equals( "Almacen0" ) ){
-            System.out.println("dentro if");
-            //while( segundos == 5 || segundos == 10 || segundos == 15 || segundos == 20 ){
-                System.out.println("Cuantos segundos quiere que demore "
+            System.out.println("dentro if");           
+            System.out.println("Cuantos segundos quiere que demore "
                         + "los transportes en salir? 5, 10, 15, 20 segundo ");
-                segundos = reader.nextInt(); 
-            //}
+           segundos = reader.nextInt(); 
+            
         }
-        /*int loop = 0;
-        while ( true ){
-            Socket socket = ss.accept();
-            System.out.println("Ha llegado un cliente.");
-            ObjectOutputStream oos;
-            ObjectInputStream ois;
-            Mensaje recibido;
-            ois = new ObjectInputStream( socket.getInputStream() );
-            oos = new ObjectOutputStream( socket.getOutputStream() );
-            recibido = ( Mensaje ) ois.readObject();
-            String prueba = "192.168.25.07";
-            String pruebatrae;
-            Json.EscriboIpSiguiente( recibido.getMensaje() );
-            pruebatrae = Json.LeerAlmacen();
-            System.out.println(pruebatrae);
-            recibido.setMensaje( "Actualizado" );
-            oos.writeObject( recibido );
-            oos.flush();
-            break;
-        }*/
+        
         System.out.println("Esperando peticiones");
         String ip = InetAddress.getLocalHost().getHostAddress();
         System.out.println(InetAddress.getLocalHost().getHostAddress());
         /*Registry registroCliente = LocateRegistry.getRegistry(); 
-                 //System.setProperty("java.rmi.server.hostname","192.168.43.48");
-                 ConexionRemoto canalCliente; 
-                canalCliente = (ConexionRemoto)registroCliente.lookup("canal");
-                
-                 System.out.println("       RMI");
-                 
-                 canalCliente.almacenarTiempo(0, "1.2.3.43");*/
+        //System.setProperty("java.rmi.server.hostname","192.168.43.48");
+        ConexionRemoto canalCliente; 
+        canalCliente = (ConexionRemoto)registroCliente.lookup("canal");
+        System.out.println("       RMI");                 
+        canalCliente.almacenarTiempo(0, "1.2.3.43");*/
+        
+        //ciclo infinito para la recepcion de los transporte
         while ( true ){
-            /*Socket socket = ss.accept();
-            System.out.println("Ha llegado un cliente.");
-            ObjectOutputStream oos;
-            ObjectInputStream ois;
-            Mensaje recibido;
-            ois = new ObjectInputStream( socket.getInputStream() );
-            oos = new ObjectOutputStream( socket.getOutputStream() );
-            recibido = ( Mensaje ) ois.readObject();
-            String prueba = "192.168.25.07";
-            String pruebatrae;
-            Json.EscriboIpSiguiente( recibido.getMensaje() );
-            pruebatrae = Json.LeerAlmacen();
-            System.out.println(pruebatrae);
-            recibido.setMensaje( "Actualizado" );
-            oos.writeObject( recibido );
-            oos.flush();
-            */
+            
             Socket socket = ss.accept();
             System.out.println("Ha llegado un cliente.");
             ObjectOutputStream oos;
@@ -132,6 +97,7 @@ public class Cliente {
             oos = new ObjectOutputStream( socket.getOutputStream() );
             recibido = ( Mensaje ) ois.readObject();
             
+            //peticion para actualizar mi vecino 
             if (recibido.getOpcion() == 1){
                 Json.EscriboIpSiguiente( recibido.getMensaje() );
                 String pruebatrae;
@@ -141,7 +107,8 @@ public class Cliente {
                 oos.writeObject( recibido );
                 oos.flush();
             }
-            //Recibe jun paquete
+            
+            //Recibe los paquete y envia paquetes
             if (recibido.getOpcion() == 2){
                 espera.run20s();
                 System.out.println("Recibi peticion");
@@ -152,19 +119,14 @@ public class Cliente {
                 recibido.setMensaje( "Exitoso" );
                 oos.writeObject( recibido );
                 oos.flush();
-                
                  
-                /* Registry registroCliente = LocateRegistry.getRegistry(); 
-                 //System.setProperty("java.rmi.server.hostname","192.168.43.48");
+                /*Registry registroCliente = LocateRegistry.getRegistry(); 
+                 System.setProperty("java.rmi.server.hostname","192.168.43.194");
                  ConexionRemoto canalCliente; 
                 canalCliente = (ConexionRemoto)registroCliente.lookup("canal");
-                
                  System.out.println("       RMI");
-                 
                  canalCliente.almacenarTiempo(0, recibido.getTransporte().getIdentificador());*/ 
-                                
-                
-                
+                  
                 
                 //Aqui envio al siguiente almacen
                 ConexionAlmacen peticion1 = new ConexionAlmacen();
@@ -176,16 +138,14 @@ public class Cliente {
                 Transporte transporte = new Transporte("prueba","prueba",1,paquetes);
                 peticion1.peticionEnvioTransporte(mensaje, Json.LeerAlmacen() , transporte);
                 
-
-                
             }
             
-            if (recibido.getOpcion() == 3){
-            
-            }
             //Aqui es fundamental colocar la ip de la maquina que tiene el almacen0
-
-            if ( !Json.LeerAlmacen().equals( "192.168.43.48" ) ){
+            //Aqui realizar la primer peticion para
+            
+            //Identifica quien es el almancen 0, es importante porque el
+            //inicia los transportes
+            if ( !Json.LeerAlmacen().equals( "192.168.4.41" ) ){
                 if(yo.getNombre().equals( "Almacen0" ) && nTransporte < 4){
                     nTransporte++;
                     ConexionAlmacen peticion1 = new ConexionAlmacen();

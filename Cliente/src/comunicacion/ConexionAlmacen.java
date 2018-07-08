@@ -20,8 +20,10 @@ import peticiones.Mensaje;
  *
  * @author Marvian
  */
+
+//Clase para manejar el envio y la comunicacion entre almacenes
 public class ConexionAlmacen {
-    int secuencia;
+    int secuencia;//atributo usado para saber la secuencia entre paquetes 
     
     public void peticionEnvioTransporte( Mensaje mensaje, String vecino, Transporte transporte ){
         int id;
@@ -60,6 +62,8 @@ public class ConexionAlmacen {
         }
         }while(intentos != 3);
         
+        //En caso de que mi vecino este caido y ya supere el numero maximo de reenvio
+        //notifico al nodo central
         if (intentos == 3 ){            
             try {
                 Socket peticionCentral = new Socket( "localhost" , 11000 );

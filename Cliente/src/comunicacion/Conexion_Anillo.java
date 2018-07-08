@@ -16,7 +16,7 @@ import peticiones.Mensaje;
 
 /**
  *
- * @author marvian
+ * @author Marvian
  * Clase en la cual se realia toda la comunicacion entre los almacenes y el
  * servidor de estadisticas.
  */
@@ -29,7 +29,7 @@ public class Conexion_Anillo {
     public String peticionAnillo( Mensaje mensaje ){
         String nombre;
         try {
-            Socket peticionCentral = new Socket( "localhost", 11000 );
+            Socket peticionCentral = new Socket( "192.168.4.20", 11000 );
             System.out.println( "Realizando petición de entrada al anillo" );
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
             ObjectInputStream ois = new ObjectInputStream( peticionCentral.getInputStream() );

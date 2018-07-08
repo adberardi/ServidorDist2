@@ -49,7 +49,7 @@ public class MainServidor {
      * antes de que inicie el servidor concurrente.
      */
     public static void main(String[] args) throws IOException, RemoteException, AlreadyBoundException, ClassNotFoundException {
-        // TODO code application logic here
+        
         
         /*ConexionRemoto canal = new ConexionRemoto() {
             @Override
@@ -208,7 +208,7 @@ public class MainServidor {
         };*/
         
         /*RemotoServidor servidor = new RemotoServidor();
-    ConexionRemoto stub = (ConexionRemoto) UnicastRemoteObject.exportObject(servidor, 0);
+        ConexionRemoto stub = (ConexionRemoto) UnicastRemoteObject.exportObject(servidor, 0);
         Registry registro = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         registro.bind("canal", stub);
         */
@@ -242,14 +242,13 @@ public class MainServidor {
         System.out.println("prueba sirve" + prueba);
         
         if( prueba.equalsIgnoreCase("1") ){
-            System.out.println("entra");
+            System.out.println("Son el central");
             
         }
         else {
-            System.out.println("entra en el segundo");
-                System.out.println("Envio ");
-                Replica.avisoReplica();     
-                   
+            System.out.println("Soy una replica");
+                System.out.println("Envio");
+                Replica.avisoReplica();                    
         }
         
         while ( true ){
@@ -300,7 +299,6 @@ public class MainServidor {
             Socket socket = ss.accept();
             System.out.println("Ha llegado un cliente.");
             id = id + 1;
-//<<<<<<< Updated upstream
             if ( id == 7){
                 Servidor.cancelarAlmacen(socket, ss, id);
            
@@ -312,11 +310,8 @@ public class MainServidor {
             
                         
         }
-//=======
        
- 
-        }
-//>>>>>>> Stashed changes
+ }
         
         //Agregado por Antonio para probar las estadisticas del tiempo promedio. 
         //RemotoServidor prueba = new RemotoServidor();

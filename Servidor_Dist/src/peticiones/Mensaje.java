@@ -9,12 +9,14 @@ import java.io.Serializable;
 
 /**
  *
- * @author gilbert
+ * @author Marvian
  */
+
+//Objeto que viaja entre almancenes
 public class Mensaje implements Serializable{
-    private int opcion;
-    private String mensaje;
-    private Transporte transporte;
+    private int opcion; // Atributo para saber que tipo de peticion se realizara
+    private String mensaje; // Atributo usado para dar respuesta
+    private Transporte transporte; // Objeto que contiene los paquetes
     private String ip;
     
     public Mensaje( int opcion, String mensaje ){

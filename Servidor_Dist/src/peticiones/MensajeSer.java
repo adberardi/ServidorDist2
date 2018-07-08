@@ -12,6 +12,8 @@ import java.io.Serializable;
  *
  * @author Marvian
  */
+
+//Objeto usando para el manejo de json en los Servidores
 public class MensajeSer implements Serializable {
     private String id;
     private String ip;

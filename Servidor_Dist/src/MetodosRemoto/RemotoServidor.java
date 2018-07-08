@@ -26,6 +26,8 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author antonio
  */
+
+//Clase para el manejo de RMI y todas las estadisticas
 public class RemotoServidor extends UnicastRemoteObject implements ConexionRemoto{
 
     private long tiempo_llegada;
@@ -69,8 +71,8 @@ public class RemotoServidor extends UnicastRemoteObject implements ConexionRemot
     }
 
      //Función usada para guardar el tiempo de los distintos "almacenes" con su
-     //tiempo de llegada al destino. Autor: Antonio Berardi
-    public boolean almacenarTiempo(long tiempo_llegada, String ipEmisor) throws RemoteException{
+     //tiempo de llegada al destino. Autor: Antonio Berardi     
+     public boolean almacenarTiempo(long tiempo_llegada, String ipEmisor) throws RemoteException{
         this.tiempo_llegada = tiempo_llegada;
         this.ipEmisor = ipEmisor;
         File dato = new File("/home/antonio/Documentos/Distribuidos/proyecto.txt");

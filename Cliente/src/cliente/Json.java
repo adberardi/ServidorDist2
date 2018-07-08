@@ -19,8 +19,11 @@ import org.json.simple.parser.JSONParser;
  *
  * @author Marvian
  */
+
+//Clase para el manejo de los archivos
 public class Json {
     
+    //Metodo para escribir la ip de mi vecino
     public static void EscriboIpSiguiente (String Ip){
 	File archivo = null;
 		
@@ -46,6 +49,7 @@ public class Json {
 		}		
     }
     
+    // Metodo para leer la ip guardada de mi vecino
      public static String LeerAlmacen() throws IOException{
 		
 	File archivo = null;

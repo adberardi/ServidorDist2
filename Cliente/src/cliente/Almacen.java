@@ -10,6 +10,8 @@ package cliente;
  *
  * @author Marvian
  */
+
+// Objeto almacen usado para la creacion del anillo y guardado en el Json
 public class Almacen {
     private String nombre;
     private String ip;

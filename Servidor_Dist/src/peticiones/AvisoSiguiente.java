@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Clase que es llamada unicamente para notificar a un nodo quien es el nodo
+ * Clase que es llamada unicamente para notificar a un Almacen quien es el Almacen
  * siguiente en el anillo.
  * @author marvian
  */

@@ -18,15 +18,18 @@ import java.util.logging.Logger;
  *
  * @author Marvian
  */
+
+//Clase usada por las replicas para comunicarse con el central
 public class Replica {
     static ObjectOutputStream oos;
-    static ObjectInputStream ois;    
+    static ObjectInputStream ois; 
+    
     public static void avisoReplica(){
         String nuevoId;
         Mensaje mensaje;
         
         try {
-            Socket peticionCentral = new Socket( "186.90.152.227", 11000 );
+            Socket peticionCentral = new Socket( "192.168.4.20", 11000 );
             System.out.println( "Aviso al central que estoy arriba" );
             mensaje = new Mensaje( 2 , "" ,"localhost" );            
             ObjectOutputStream oos = new ObjectOutputStream( peticionCentral.getOutputStream() );
@@ -46,7 +49,7 @@ public class Replica {
             Logger.getLogger(Replica.class.getName()).log(Level.SEVERE, null, ex);
             
         }
-        
+
     }
     
     public void RespuestaReplica( MensajeSer mensajeSer ){

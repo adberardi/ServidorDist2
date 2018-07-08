@@ -9,12 +9,14 @@ import java.io.Serializable;
 
 /**
  *
- * @author gilbert
+ * @author Marvian
  */
+
+//Objeto que procesan los almacenes 
 class Paquete implements Serializable{
-    private String ipEmisor;
-    private String ipDestinatarioFinal;
-    private String mensaje;
+    private String ipEmisor; //Quien lo envia
+    private String ipDestinatarioFinal; // quien lo recibira
+    private String mensaje; //mensaje a procesar
     
     /*tiempoSalida: tiempo tomando en el que se subio el paquete al transporte*/
     private long tiempoSalida;
